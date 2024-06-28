@@ -45,6 +45,10 @@ export default function page() {
           </button>
         </div>
 
+        <div className="divisor">
+          <span>or</span>
+        </div>
+
         <form className="register__form grid">
           <div className="field">
             <input type="email" id="email" name="email" placeholder="" />

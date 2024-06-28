@@ -9,6 +9,7 @@
 
 .register__subtitle {
   font-size: 1.25rem;
+  text-align: center;
   margin-top: 1rem;
   color: var(--text-color-light);
   font-weight: var(--font-thin);
@@ -22,10 +23,17 @@
 
 .register__mode {
   margin-top: 5rem;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
-  column-gap: 6rem;
+  grid-template-columns: 1fr;
+  row-gap: 2rem;
   width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .register__mode {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    column-gap: 6rem;
+  }
 }
 
 .register__button-container {
@@ -50,6 +58,29 @@
 .register__oauth-button:hover {
   cursor: pointer;
   border: 1px solid var(--black-color);
+}
+
+.divisor {
+  height: 0;
+  width: 100%;
+  position: relative;
+  border-top: 1px solid var(--first-color-light);
+}
+
+.divisor span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.1rem;
+  padding-inline: 1rem;
+  background-color: var(--body-color);
+}
+
+@media screen and (min-width: 768px) {
+  .divisor {
+    display: none;
+  }
 }
 
 .register__form {
