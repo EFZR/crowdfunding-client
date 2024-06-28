@@ -1,0 +1,108 @@
+.register {
+  place-items: center;
+}
+
+.register__title {
+  font-size: var(--h1-font-size);
+  text-align: center;
+}
+
+.register__subtitle {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  color: var(--text-color-light);
+  font-weight: var(--font-thin);
+}
+
+.register__title span {
+  font-size: 1.25rem;
+  color: var(--text-color-light);
+  font-weight: var(--font-thin);
+}
+
+.register__mode {
+  margin-top: 5rem;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  column-gap: 6rem;
+  width: 100%;
+}
+
+.register__button-container {
+  row-gap: 1rem;
+}
+
+.register__oauth-button {
+  padding: 1rem;
+  border: 1px solid var(--first-color-light);
+  border-radius: 0.5rem;
+  transition: border 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register__oauth-button span {
+  margin-inline: auto;
+  font-weight: var(--font-medium);
+}
+
+.register__oauth-button:hover {
+  cursor: pointer;
+  border: 1px solid var(--black-color);
+}
+
+.register__form {
+  row-gap: 1rem;
+}
+
+.field {
+  padding-inline: 1rem;
+  padding-block: 2rem 0.5rem;
+  border: 1px solid var(--first-color-light);
+  border-radius: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.field label {
+  position: absolute;
+  cursor: text;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: top 0.2s, font-size 0.2s;
+  font-weight: var(--font-semi-bold);
+  color: var(--text-color-light);
+}
+
+.field input {
+  &::placeholder {
+    color: transparent;
+  }
+}
+
+.field input:focus ~ .label,
+.field input:not(:placeholder-shown) ~ .label {
+  position: absolute;
+  top: 30%;
+  font-size: var(--small-font-size);
+}
+
+input[type="submit"] {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.forgot__password-link {
+  margin-top: 3rem;
+  font-size: 1.25rem;
+  color: var(--text-color-light);
+  font-weight: var(--font-regular);
+  transform: color 0.2s;
+}
+
+.forgot__password-link:hover {
+  color: var(--first-color);
+}
