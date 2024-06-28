@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import "@/app/styles/authentication/login.css";
+import "@/styles/authentication/login.css";
 
 export default function page() {
   return (
