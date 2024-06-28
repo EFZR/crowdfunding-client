@@ -1,7 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import "@/src/styles/authentication/login.css";
+
+import LoginForm from "@/src/components/authentication/login/LoginForm";
+import "@/src/styles/app/authentication/login/login.css";
 
 export default function page() {
   return (
@@ -47,28 +49,7 @@ export default function page() {
           <span>or</span>
         </div>
 
-        <form className="login__form grid">
-          <div className="field">
-            <input type="email" id="email" name="email" placeholder="" />
-            <label className="label" htmlFor="email">
-              Correo Electronico
-            </label>
-          </div>
-
-          <div className="field">
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              name="password"
-            />
-            <label className="label" htmlFor="password">
-              Contraseña
-            </label>
-          </div>
-
-          <input type="submit" className="button" />
-        </form>
+        <LoginForm />
       </div>
 
       {/* TODO: Implement email auth to make it work */}

@@ -1,5 +1,7 @@
 import { getEnvSafely } from "./config";
 
-const env = {};
+const env = {
+  API_URI: process.env.API_URI,
+};
 
 export default env;
