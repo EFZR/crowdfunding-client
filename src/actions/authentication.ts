@@ -1,13 +1,39 @@
-import { UserLoginForm, UserRegistrationForm } from "../types/authentication";
+import { FormStateResult, initialFormStateValues } from "../types/formState";
+import {
+  UserLoginForm,
+  UserRegistrationForm,
+  loginSchema,
+  registrationSchema,
+} from "../types/authentication";
 
 export async function createAccount(
   userRegistrationForm: UserRegistrationForm
-) {
-  console.log(userRegistrationForm);
-  return "User Created Succesfully";
+): Promise<FormStateResult> {
+  const result = registrationSchema.safeParse(userRegistrationForm);
+
+  if (!result.success) {
+    return {
+      type: "error",
+      message: "",
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  return initialFormStateValues;
 }
 
-export async function authenticate(userLoginForm: UserLoginForm) {
-  console.log(userLoginForm);
-  return "Login....";
+export async function authenticate(
+  userLoginForm: UserLoginForm
+): Promise<FormStateResult> {
+  const result = loginSchema.safeParse(userLoginForm);
+
+  if (!result.success) {
+    return {
+      type: "error",
+      message: "",
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  return initialFormStateValues;
 }

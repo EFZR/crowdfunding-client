@@ -1,3 +1,5 @@
+"use server";
+
 import { getEnvSafely } from "./config";
 
 const env = {

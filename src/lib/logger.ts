@@ -1,3 +1,5 @@
+"use server";
+
 import type { Logger } from "winston";
 import winston from "winston";
 
