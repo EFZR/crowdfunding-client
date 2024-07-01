@@ -4,6 +4,7 @@ const env = {
   NODE_ENV: getEnvSafely("NODE_ENV"),
   DATABASE_URL: getEnvSafely("DATABASE_URL"),
   JWT_SECRET: getEnvSafely("JWT_SECRET"),
+  EXPIRATION_TIME: getEnvSafely("EXPIRATION_TIME"),
   AUTH_URI: getEnvSafely("AUTH_URI"),
   TOKEN_URI: getEnvSafely("TOKEN_URI"),
   USER_INFO_URI: getEnvSafely("USER_INFO_URI"),

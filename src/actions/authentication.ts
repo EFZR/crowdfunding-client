@@ -1,5 +1,13 @@
 "use server";
 
+// External dependencies.
+import { Prisma } from "@prisma/client";
+import { cookies } from "next/headers";
+
+// Internal dependencies.
+import { checkPassword, hashPassword } from "../lib/bcrypt";
+import { logError } from "../lib";
+import { generateJWT } from "../lib/jwt";
 import prisma from "../lib/database";
 import { FormStateResult } from "../types/formState";
 import {
@@ -8,10 +16,6 @@ import {
   loginSchema,
   registrationSchema,
 } from "../types/authentication";
-import { checkPassword, hashPassword } from "../lib/bcrypt";
-import { Prisma } from "@prisma/client";
-import { logError } from "../lib";
-import { generateJWT } from "../lib/jwt";
 
 export async function createAccount(
   userRegistrationForm: UserRegistrationForm
@@ -119,7 +123,6 @@ export async function authenticate(
 
   // Check Hashed password
   const isPasswordValid = await checkPassword(password, userExists.password);
-
   if (!isPasswordValid) {
     return {
       type: "error",
@@ -132,9 +135,24 @@ export async function authenticate(
   const token = generateJWT({ id: userExists.id, email: userExists.email });
   console.log(token);
 
+  // Set cookies for the authentication.
+  cookies().set("token", token, { httpOnly: true });
+
   return {
     type: "success",
     message: "Autenticando.",
     errors: {},
   };
 }
+
+// TODO: Implement more oauth 2.0 options like meta and apple id.
+
+/** TODO:
+ * Implement confirmAccount,
+ * requestConfirmationCode,
+ * forgotPassword,
+ * validatePasswordToken,
+ * updatePasswordWithToken,
+ * updateProfile,
+ * updateCurrentUserWithPassword,
+ * checkPassword */
