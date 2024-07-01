@@ -1,4 +1,6 @@
-import { FormStateResult, initialFormStateValues } from "../types/formState";
+"use server";
+
+import { FormStateResult } from "../types/formState";
 import {
   UserLoginForm,
   UserRegistrationForm,
@@ -19,7 +21,11 @@ export async function createAccount(
     };
   }
 
-  return initialFormStateValues;
+  return {
+    type: "success",
+    message: "Autenticando.",
+    errors: {},
+  };
 }
 
 export async function authenticate(
@@ -35,5 +41,9 @@ export async function authenticate(
     };
   }
 
-  return initialFormStateValues;
+  return {
+    type: "success",
+    message: "Autenticando.",
+    errors: {},
+  };
 }
