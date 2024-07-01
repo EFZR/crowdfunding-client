@@ -34,6 +34,10 @@ export default function LoginForm() {
         });
       });
     }
+
+    if (state.message !== "") {
+      toast.success(state.message);
+    }
   }, [state]);
 
   //#endregion

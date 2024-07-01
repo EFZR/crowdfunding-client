@@ -5,9 +5,9 @@ import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
 
 import { UserRegistrationForm } from "@/src/types/authentication";
-import "@/src/styles/components/authentication/register/RegisterForm.css";
 import { FormStateResult, initialFormStateValues } from "@/src/types/formState";
 import { createAccount } from "@/src/actions";
+import "@/src/styles/components/authentication/register/RegisterForm.css";
 
 export default function RegisterForm() {
   //#region State
@@ -34,6 +34,10 @@ export default function RegisterForm() {
           toast.error(error);
         });
       });
+    }
+
+    if (state.message !== "") {
+      toast.success(state.message);
     }
   }, [state]);
 

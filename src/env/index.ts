@@ -1,6 +1,7 @@
 import { getEnvSafely } from "./config";
 
 const env = {
+  NODE_ENV: getEnvSafely("NODE_ENV"),
   DATABASE_URL: getEnvSafely("DATABASE_URL"),
   JWT_SECRET: getEnvSafely("JWT_SECRET"),
   AUTH_URI: getEnvSafely("AUTH_URI"),
