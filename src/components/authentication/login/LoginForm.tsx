@@ -1,39 +1,16 @@
 "use client";
 
 import { ChangeEvent, useState, useEffect } from "react";
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { getServerSession } from "next-auth";
-import { getCsrfToken, getProviders } from "next-auth/react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
 
 import { authenticate } from "@/src/actions";
 import { UserLoginForm } from "@/src/types/authentication";
 import { FormStateResult, initialFormStateValues } from "@/src/types/formState";
-import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import "@/src/styles/components/authentication/login/LoginForm.css";
 
-//#region Props
 
-async function getLoginFormProps(context: GetServerSidePropsContext) {
-  const session = await getServerSession(context.req, context.res, authOptions);
-
-  if (session) {
-    return { redirect: { destiantion: "/dashboard" } };
-  }
-
-  return {
-    props: {
-      csrfToken: await getCsrfToken(context),
-    },
-  };
-}
-
-type LoginFormProps = InferGetServerSidePropsType<typeof getLoginFormProps>;
-
-//#endregion
-
-export default function LoginForm({ csrfToken }: LoginFormProps) {
+export default function LoginForm() {
   //#region States
 
   const initialValues: UserLoginForm = {
@@ -44,25 +21,20 @@ export default function LoginForm({ csrfToken }: LoginFormProps) {
   const [userLoginForm, setUserLoginForm] =
     useState<UserLoginForm>(initialValues);
 
-  const [state, dispatch] = useFormState<FormStateResult, UserLoginForm>(
-    handleLoginForm,
-    initialFormStateValues
-  );
+  // // Handle errors.
+  // useEffect(() => {
+  //   if (state.errors) {
+  //     Object.keys(state.errors).forEach((key) => {
+  //       state.errors[key].forEach((error) => {
+  //         toast.error(error);
+  //       });
+  //     });
+  //   }
 
-  // Handle errors.
-  useEffect(() => {
-    if (state.errors) {
-      Object.keys(state.errors).forEach((key) => {
-        state.errors[key].forEach((error) => {
-          toast.error(error);
-        });
-      });
-    }
-
-    if (state.message !== "") {
-      toast.success(state.message);
-    }
-  }, [state]);
+  //   if (state.message !== "") {
+  //     toast.success(state.message);
+  //   }
+  // }, [state]);
 
   //#endregion
 
@@ -75,17 +47,10 @@ export default function LoginForm({ csrfToken }: LoginFormProps) {
     });
   }
 
-  async function handleLoginForm(): Promise<FormStateResult> {
-    const result = await authenticate(userLoginForm);
-    return result;
-  }
-
   //#endregion
 
   return (
-    <form className="login__form grid" action={dispatch} noValidate>
-      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-
+    <form className="login__form grid" noValidate>
       <div className="field">
         <input
           type="email"

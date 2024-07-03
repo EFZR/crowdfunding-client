@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -6,6 +5,7 @@ import LoginForm from "@/src/components/authentication/login/LoginForm";
 import "@/src/styles/app/authentication/login/login.css";
 
 export default function page() {
+
   return (
     <section className="login section container grid">
       <h1 className="login__title">¡Hola, Bienvenido de nuevo!</h1>

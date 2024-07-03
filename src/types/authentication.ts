@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 const authSchema = z.object({
-  username: z
+  id: z.string(),
+  name: z
     .string({
       required_error: "El nombre de usuario es obligatorio.",
     })
@@ -39,9 +40,19 @@ export type UserLoginForm = z.infer<typeof loginSchema>;
 // Registration schema.
 
 export const registrationSchema = authSchema.pick({
-  username: true,
+  name: true,
   email: true,
   password: true,
 });
 
 export type UserRegistrationForm = z.infer<typeof registrationSchema>;
+
+// Return schema.
+
+export const userReturn = authSchema.pick({
+  id: true,
+  name: true,
+  email: true,
+});
+
+export type UserReturn = z.infer<typeof userReturn>;

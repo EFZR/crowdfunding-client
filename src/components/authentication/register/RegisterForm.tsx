@@ -1,12 +1,7 @@
 "use client";
 
-import { useState, useEffect, ChangeEvent } from "react";
-import { useFormState } from "react-dom";
-import toast from "react-hot-toast";
-
+import { useState, ChangeEvent } from "react";
 import { UserRegistrationForm } from "@/src/types/authentication";
-import { FormStateResult, initialFormStateValues } from "@/src/types/formState";
-import { createAccount } from "@/src/actions";
 import "@/src/styles/components/authentication/register/RegisterForm.css";
 
 export default function RegisterForm() {
@@ -15,31 +10,11 @@ export default function RegisterForm() {
   const initialValues: UserRegistrationForm = {
     email: "",
     password: "",
-    username: "",
+    name: "",
   };
 
   const [userRegistrationForm, setUserRegistrationForm] =
     useState<UserRegistrationForm>(initialValues);
-
-  const [state, dispatch] = useFormState<FormStateResult, UserRegistrationForm>(
-    handleRegistrationForm,
-    initialFormStateValues
-  );
-
-  // Handle errors.
-  useEffect(() => {
-    if (state.errors) {
-      Object.keys(state.errors).forEach((key) => {
-        state.errors[key].forEach((error) => {
-          toast.error(error);
-        });
-      });
-    }
-
-    if (state.message !== "") {
-      toast.success(state.message);
-    }
-  }, [state]);
 
   //#endregion
 
@@ -52,15 +27,10 @@ export default function RegisterForm() {
     });
   }
 
-  async function handleRegistrationForm(): Promise<FormStateResult> {
-    const result = await createAccount(userRegistrationForm);
-    return result;
-  }
-
   //#endregion
 
   return (
-    <form className="register__form grid" action={dispatch} noValidate>
+    <form method="POST" action="" className="register__form grid" noValidate>
       <div className="field">
         <input
           type="email"
@@ -81,7 +51,7 @@ export default function RegisterForm() {
           id="username"
           placeholder=""
           name="username"
-          value={userRegistrationForm.username}
+          value={userRegistrationForm.name}
           onChange={handleChange}
         />
         <label className="label" htmlFor="username">
