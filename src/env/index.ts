@@ -5,17 +5,12 @@ const env = {
   DATABASE_URL: getEnvSafely("DATABASE_URL"),
   JWT_SECRET: getEnvSafely("JWT_SECRET"),
   EXPIRATION_TIME: getEnvSafely("EXPIRATION_TIME"),
-  AUTH_URI: getEnvSafely("AUTH_URI"),
-  TOKEN_URI: getEnvSafely("TOKEN_URI"),
-  USER_INFO_URI: getEnvSafely("USER_INFO_URI"),
-  CLIENT_ID: getEnvSafely("CLIENT_ID"),
-  CLIENT_SECRET: getEnvSafely("CLIENT_SECRET"),
-  REDIRECT_URI: getEnvSafely("REDIRECT_URI"),
-  RESPONSE_TYPE: getEnvSafely("RESPONSE_TYPE"),
-  SCOPE: getEnvSafely("SCOPE"),
-  STATE: getEnvSafely("STATE"),
-  INCLUDE_GRANTED_SCOPES: getEnvSafely("INCLUDE_GRANTED_SCOPES"),
-  GRANT_TYPE: getEnvSafely("GRANT_TYPE"),
+  GOOGLE_CLIENT_ID: getEnvSafely("GOOGLE_CLIENT_ID"),
+  GOOGLE_CLIENT_SECRET: getEnvSafely("GOOGLE_CLIENT_SECRET"),
+  FACEBOOK_CLIENT_ID: getEnvSafely("FACEBOOK_CLIENT_ID"),
+  FACEBOOK_CLIENT_SECRET: getEnvSafely("FACEBOOK_CLIENT_SECRET"),
+  // APPLE_CLIENT_ID: getEnvSafely("APPLE_CLIENT_ID"),
+  // APPLE_CLIENT_SECRET: getEnvSafely("APPLE_CLIENT_SECRET"),
 };
 
 export default env;

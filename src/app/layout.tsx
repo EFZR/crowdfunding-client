@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { Toaster } from "react-hot-toast";
+
+import NextAuthProvider from "../providers/NextAuthProvider";
+import ToastProvider from "../providers/ToastProvider";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -23,8 +25,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className={poppins.variable}>
-        {children}
-        <Toaster position="top-right" reverseOrder={true} />
+        <NextAuthProvider>{children}</NextAuthProvider>
+        <ToastProvider />
       </body>
     </html>
   );

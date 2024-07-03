@@ -1,15 +1,39 @@
 "use client";
 
 import { ChangeEvent, useState, useEffect } from "react";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
+import { getCsrfToken, getProviders } from "next-auth/react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
 
 import { authenticate } from "@/src/actions";
 import { UserLoginForm } from "@/src/types/authentication";
 import { FormStateResult, initialFormStateValues } from "@/src/types/formState";
+import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import "@/src/styles/components/authentication/login/LoginForm.css";
 
-export default function LoginForm() {
+//#region Props
+
+async function getLoginFormProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return { redirect: { destiantion: "/dashboard" } };
+  }
+
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
+}
+
+type LoginFormProps = InferGetServerSidePropsType<typeof getLoginFormProps>;
+
+//#endregion
+
+export default function LoginForm({ csrfToken }: LoginFormProps) {
   //#region States
 
   const initialValues: UserLoginForm = {
@@ -60,6 +84,8 @@ export default function LoginForm() {
 
   return (
     <form className="login__form grid" action={dispatch} noValidate>
+      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+
       <div className="field">
         <input
           type="email"

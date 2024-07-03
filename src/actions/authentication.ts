@@ -133,7 +133,6 @@ export async function authenticate(
 
   // Generate JWT
   const token = generateJWT({ id: userExists.id, email: userExists.email });
-  console.log(token);
 
   // Set cookies for the authentication.
   cookies().set("token", token, { httpOnly: true });
