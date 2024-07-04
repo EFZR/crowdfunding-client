@@ -1,16 +1,14 @@
 "use client";
+//Fix: AuthJs 5.0.0 not working with client.
 
-import { ChangeEvent, useState, useEffect } from "react";
-import { useFormState } from "react-dom";
-import toast from "react-hot-toast";
+import { ChangeEvent, useState } from "react";
+import Image from "next/image";
 
-import { authenticate } from "@/src/actions";
+import { signIn, providerMap } from "@/src/lib/nextauth";
 import { UserLoginForm } from "@/src/types/authentication";
-import { FormStateResult, initialFormStateValues } from "@/src/types/formState";
 import "@/src/styles/components/authentication/login/LoginForm.css";
 
-
-export default function LoginForm() {
+export default async function LoginForm() {
   //#region States
 
   const initialValues: UserLoginForm = {
@@ -21,20 +19,7 @@ export default function LoginForm() {
   const [userLoginForm, setUserLoginForm] =
     useState<UserLoginForm>(initialValues);
 
-  // // Handle errors.
-  // useEffect(() => {
-  //   if (state.errors) {
-  //     Object.keys(state.errors).forEach((key) => {
-  //       state.errors[key].forEach((error) => {
-  //         toast.error(error);
-  //       });
-  //     });
-  //   }
-
-  //   if (state.message !== "") {
-  //     toast.success(state.message);
-  //   }
-  // }, [state]);
+  console.log(providerMap);
 
   //#endregion
 
@@ -50,36 +35,68 @@ export default function LoginForm() {
   //#endregion
 
   return (
-    <form className="login__form grid" noValidate>
-      <div className="field">
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder=""
-          value={userLoginForm.email}
-          onChange={handleChange}
-        />
-        <label className="label" htmlFor="email">
-          Correo Electronico
-        </label>
-      </div>
+    <>
+      <div className="login__mode grid">
+        <div className="login__button-container grid">
+          {providerMap.map(
+            (provider) =>
+              provider.id !== "credentials" && (
+                <form
+                  key={provider.id}
+                  action={async () =>
+                    await signIn(provider.id, { redirectTo: "/dashboard" })
+                  }
+                >
+                  <button className="login__oauth-button">
+                    <Image
+                      src={`/${provider.id}.svg`}
+                      alt={`${provider.name} OAuth 2.0`}
+                      width={30}
+                      height={30}
+                    />
+                    <span>Continúa con Google</span>
+                  </button>
+                </form>
+              )
+          )}
+        </div>
 
-      <div className="field">
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder=""
-          value={userLoginForm.password}
-          onChange={handleChange}
-        />
-        <label className="label" htmlFor="password">
-          Contraseña
-        </label>
-      </div>
+        <div className="divisor">
+          <span>or</span>
+        </div>
 
-      <input type="submit" className="button" />
-    </form>
+        <form className="login__form grid" noValidate>
+          <div className="field">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder=""
+              value={userLoginForm.email}
+              onChange={handleChange}
+            />
+            <label className="label" htmlFor="email">
+              Correo Electronico
+            </label>
+          </div>
+
+          <div className="field">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder=""
+              value={userLoginForm.password}
+              onChange={handleChange}
+            />
+            <label className="label" htmlFor="password">
+              Contraseña
+            </label>
+          </div>
+
+          <input type="submit" className="button" />
+        </form>
+      </div>
+    </>
   );
 }

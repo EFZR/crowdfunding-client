@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import env from "../env";
 
 type UserPayload = {
   id: number;
@@ -7,13 +6,13 @@ type UserPayload = {
 };
 
 export function generateJWT(payload: UserPayload) {
-  const token = jwt.sign(payload, env.JWT_SECRET, {
-    expiresIn: env.EXPIRATION_TIME,
+  const token = jwt.sign(payload, process.env.JWT_SECRET!, {
+    expiresIn: process.env.EXPIRATION_TIME,
   });
   return token;
 }
 
 export function verifyJWT(token: string) {
-  const response = jwt.verify(token, env.JWT_SECRET);
+  const response = jwt.verify(token, process.env.JWT_SECRET!);
   console.log(response);
 }

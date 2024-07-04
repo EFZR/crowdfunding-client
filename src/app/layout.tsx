@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className={poppins.variable}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        {children}
         <ToastProvider />
       </body>
     </html>

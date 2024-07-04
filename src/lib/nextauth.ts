@@ -1,32 +1,19 @@
-import NextAuth from "next-auth/next";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
 import { Provider } from "next-auth/providers/index";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import prisma from "@/src/lib/database";
-import env from "@/src/env";
 
 // TODO: Apple API needs to be payed to use it.
-// import Apple from "next-auth/providers/apple";
+import Apple from "next-auth/providers/apple";
 
 const providers: Provider[] = [
-  Google({
-    clientId: env.GOOGLE_CLIENT_ID!,
-    clientSecret: env.GOOGLE_CLIENT_SECRET!,
-  }),
-
-  Facebook({
-    clientId: env.FACEBOOK_CLIENT_ID!,
-    clientSecret: env.FACEBOOK_CLIENT_SECRET!,
-  }),
-
-  // Apple({
-  //   clientId: env.APPLE_CLIENT_ID,
-  //   clientSecret: env.APPLE_CLIENT_SECRET,
-  // }),
-
+  Google,
+  Facebook,
+  Apple,
   Credentials({
     type: "credentials",
     credentials: {
@@ -34,9 +21,14 @@ const providers: Provider[] = [
       password: { label: "Contraseña", type: "password" },
     },
     authorize: async (credentials) => {
-      if (credentials?.email !== "correo@correo.com") {
+      if (
+        credentials?.email !== "correo@correo.com" &&
+        credentials?.password !== "Password"
+      ) {
         return null;
       }
+
+      console.log("succesful");
 
       return {
         id: "1",
@@ -58,7 +50,7 @@ export const providerMap = providers.map((provider) => {
 });
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  debug: env.NODE_ENV !== "production" ? true : false,
+  debug: process.env.NODE_ENV !== "production" ? true : false,
   adapter: PrismaAdapter(prisma),
   providers,
   pages: {
