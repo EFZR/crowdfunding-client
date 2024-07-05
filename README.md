@@ -40,3 +40,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Content
 
 <https://github.com/ndom91/next-auth-example-sign-in-page?tab=readme-ov-file>
+
+## Safe commit
