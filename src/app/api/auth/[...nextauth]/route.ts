@@ -1,2 +1,2 @@
 import { handlers } from "@/src/lib/nextauth";
-export { handlers as GET, handlers as POST };
+export const { GET, POST } = handlers;

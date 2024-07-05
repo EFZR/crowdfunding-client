@@ -1,8 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import LoginForm from "@/src/components/authentication/login/LoginForm";
 import "@/src/styles/app/authentication/login/login.css";
+import { providerMap } from "@/src/lib/nextauth";
+import OAuthButton from "@/src/components/authentication/login/OAuthButton";
 
 export default function page() {
   return (
@@ -13,7 +14,26 @@ export default function page() {
         <Link href="/authentication/register">¡Regístrate!</Link>
       </span>
 
-      <LoginForm />
+      <div className="login__mode grid">
+        <div className="login__button-container grid">
+          {providerMap.map(
+            (provider) =>
+              provider.id !== "credentials" && (
+                <OAuthButton
+                  key={provider.id}
+                  providerId={provider.id}
+                  providerName={provider.name}
+                />
+              )
+          )}
+        </div>
+
+        <div className="divisor">
+          <span>or</span>
+        </div>
+
+        <LoginForm />
+      </div>
 
       {/* TODO: Implement email auth to make it work */}
       <Link href="" className="forgot__password-link">
