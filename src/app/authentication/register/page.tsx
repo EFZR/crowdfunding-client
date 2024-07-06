@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 import RegisterForm from "@/src/components/authentication/register/RegisterForm";
+import OAuthButton from "@/src/components/authentication/login/OAuthButton";
+import { providerMap } from "@/src/lib/nextauth";
 import "@/src/styles/app/authentication/register/register.css";
 
 export default function page() {
@@ -18,33 +19,16 @@ export default function page() {
 
       <div className="register__mode grid">
         <div className="register__button-container grid">
-          <button className="register__oauth-button">
-            <Image
-              src={"/google.svg"}
-              width={30}
-              height={30}
-              alt="Google OAuth 2.0"
-            />
-            <span>Continúa con Google</span>
-          </button>
-          <button className="register__oauth-button">
-            <Image
-              src={"/facebook.svg"}
-              width={30}
-              height={30}
-              alt="Google OAuth 2.0"
-            />
-            <span>Continúa con Facebook</span>
-          </button>
-          <button className="register__oauth-button">
-            <Image
-              src={"/apple.svg"}
-              width={30}
-              height={30}
-              alt="Google OAuth 2.0"
-            />
-            <span>Continúa con Apple</span>
-          </button>
+          {providerMap.map(
+            (provider) =>
+              provider.id !== "credentials" && (
+                <OAuthButton
+                  key={provider.id}
+                  providerId={provider.id}
+                  providerName={provider.name}
+                />
+              )
+          )}
         </div>
 
         <div className="divisor">

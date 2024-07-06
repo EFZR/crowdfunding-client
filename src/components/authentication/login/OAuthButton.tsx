@@ -26,7 +26,7 @@ export default function OAuthButton({
           width={30}
           height={30}
         />
-        <span>Continúa con Google</span>
+        <span>Continúa con {providerName}</span>
       </button>
     </form>
   );

@@ -1,44 +1,8 @@
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Route Handlers
-
-<https://blog.logrocket.com/using-next-js-route-handlers/>
+# Crowdfunding
 
 ## Content
 
-<https://github.com/ndom91/next-auth-example-sign-in-page?tab=readme-ov-file>
-
-## Safe commit
+- [How to manage errors](https://stackblitz.com/edit/vitejs-vite-qmhsah?file=src%2FApp.tsx)
+- [next-auth 5.0.o beta example with nextjs 14](https://github.com/ndom91/next-auth-example-sign-in-page?tab=readme-ov-file)
+- [How to use route handler feature of nextjs](https://blog.logrocket.com/using-next-js-route-handlers/)
+- [Possible way to handle errors](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/lib/pages/signin.tsx#L68)

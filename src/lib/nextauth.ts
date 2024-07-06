@@ -6,35 +6,59 @@ import { Provider } from "next-auth/providers/index";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import prisma from "@/src/lib/database";
+import { checkPassword } from "./bcrypt";
 
 // TODO: Apple API needs to be payed to use it.
 import Apple from "next-auth/providers/apple";
+import { loginSchema } from "../types/authentication";
 
 const providers: Provider[] = [
   Google,
   Facebook,
   Apple,
   Credentials({
-    type: "credentials",
     credentials: {
-      email: { label: "Correo", type: "email" },
-      password: { label: "Contraseña", type: "password" },
+      email: { label: "email", type: "email" },
+      password: { label: "password", type: "password" },
     },
-    authorize: async (credentials) => {
-      if (
-        credentials?.email !== "correo@correo.com" &&
-        credentials?.password !== "Password"
-      ) {
+
+    async authorize(credentials) {
+      const result = loginSchema.safeParse(credentials);
+
+      if (!result.success) {
         return null;
       }
 
-      console.log("succesful");
+      // Search User.
+      const userExists = await prisma.user.findUnique({
+        where: { email: result.data.email },
+      });
+
+      if (!userExists) {
+        return null;
+      }
+
+      // TODO: Check if user is confirmed
+
+      // Check password.
+      if (!userExists.password) {
+        return null;
+      }
+
+      const isPasswordCorrect = await checkPassword(
+        result.data.password,
+        userExists.password
+      );
+
+      if (!isPasswordCorrect) {
+        return null;
+      }
 
       return {
         id: "1",
-        email: "correo@correo.com",
-        name: "correo",
-        image: "",
+        name: "Fill Murray",
+        email: "fill@murray.com",
+        image: "https://source.boringavatars.com/marble/120",
       };
     },
   }),
@@ -55,6 +79,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,
   pages: {
     signIn: "/authentication/login",
-    newUser: "/authentication/register",
   },
 });

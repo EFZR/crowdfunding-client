@@ -3,6 +3,7 @@ import { auth, signIn, signOut } from "../lib/nextauth";
 
 export default async function page() {
   const session = await auth();
+
   return (
     <div>
       {session?.user ? (

@@ -1,7 +1,10 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+import toast from "react-hot-toast";
+
 import { UserRegistrationForm } from "@/src/types/authentication";
+import { registrationSchema } from "@/src/types/authentication";
 import "@/src/styles/components/authentication/register/RegisterForm.css";
 
 export default function RegisterForm() {
@@ -27,10 +30,52 @@ export default function RegisterForm() {
     });
   }
 
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const url = "/api/authentication/register";
+
+    // Checking integrity of data.
+    const result = registrationSchema.safeParse(userRegistrationForm);
+    if (!result.success) {
+      const errors: Record<string, string[]> =
+        result.error.flatten().fieldErrors;
+
+      // Showing errors.
+      Object.keys(errors).map((key) => {
+        const value = errors[key];
+        toast.error(value[0]);
+      });
+
+      return;
+    }
+
+    // Making request.
+    const body = JSON.stringify(result.data);
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body,
+    });
+
+    const data = await response.json();
+
+    // Checking for erros.
+    if (!response.ok) {
+      toast.error(data.error);
+      return;
+    }
+
+    // Final expression.
+    toast.success(data.message);
+    setUserRegistrationForm(initialValues);
+  }
+
   //#endregion
 
   return (
-    <form method="POST" action="" className="register__form grid" noValidate>
+    <form onSubmit={handleSubmit} className="register__form grid" noValidate>
       <div className="field">
         <input
           type="email"
@@ -48,13 +93,13 @@ export default function RegisterForm() {
       <div className="field">
         <input
           type="text"
-          id="username"
+          id="name"
           placeholder=""
-          name="username"
+          name="name"
           value={userRegistrationForm.name}
           onChange={handleChange}
         />
-        <label className="label" htmlFor="username">
+        <label className="label" htmlFor="name">
           Nombre Completo
         </label>
       </div>
