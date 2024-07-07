@@ -5,6 +5,10 @@ import LoginForm from "@/src/components/authentication/login/LoginForm";
 import OAuthButton from "@/src/components/authentication/login/OAuthButton";
 import "@/src/styles/app/authentication/login/login.css";
 
+/**
+ * FIX: CSRF Token not present when signIn
+ */
+
 export default function page() {
   return (
     <section className="login section container grid">

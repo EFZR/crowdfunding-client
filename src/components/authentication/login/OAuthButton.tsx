@@ -7,6 +7,10 @@ type OAuthButtonProps = {
   providerName: string;
 };
 
+/**
+ * FIX: Handle errors of OAuth Buttons.
+ */
+
 export default function OAuthButton({
   providerId,
   providerName,
