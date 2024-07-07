@@ -6,8 +6,6 @@ import OAuthButton from "@/src/components/authentication/login/OAuthButton";
 import "@/src/styles/app/authentication/login/login.css";
 
 export default function page() {
-  console.log(providerMap);
-
   return (
     <section className="login section container grid">
       <h1 className="login__title">¡Hola, Bienvenido de nuevo!</h1>

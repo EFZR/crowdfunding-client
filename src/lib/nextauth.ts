@@ -23,6 +23,8 @@ const providers: Provider[] = [
     },
 
     async authorize(credentials) {
+      if (credentials === null) return null;
+
       const result = loginSchema.safeParse(credentials);
 
       if (!result.success) {
@@ -55,10 +57,10 @@ const providers: Provider[] = [
       }
 
       return {
-        id: "1",
-        name: "Fill Murray",
-        email: "fill@murray.com",
-        image: "https://source.boringavatars.com/marble/120",
+        id: userExists.id,
+        name: userExists.name,
+        email: userExists.email,
+        image: userExists.image,
       };
     },
   }),
@@ -77,6 +79,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: process.env.NODE_ENV !== "production" ? true : false,
   adapter: PrismaAdapter(prisma),
   providers,
+  session: {
+    strategy: "jwt",
+  },
   pages: {
     signIn: "/authentication/login",
   },
