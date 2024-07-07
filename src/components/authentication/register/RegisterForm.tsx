@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import { UserRegistrationForm } from "@/src/types/authentication";
 import { registrationSchema } from "@/src/types/authentication";
+import { createAccount } from "@/src/actions/authentication";
 import "@/src/styles/components/authentication/register/RegisterForm.css";
 
 export default function RegisterForm() {
@@ -49,27 +50,15 @@ export default function RegisterForm() {
       return;
     }
 
-    // Making request.
-    const body = JSON.stringify(result.data);
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body,
-    });
-
-    const data = await response.json();
-
-    // Checking for erros.
-    if (!response.ok) {
-      toast.error(data.error);
-      return;
+    try {
+      const response = await createAccount(userRegistrationForm);
+      toast.success(response);
+      setUserRegistrationForm(initialValues);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
-
-    // Final expression.
-    toast.success(data.message);
-    setUserRegistrationForm(initialValues);
   }
 
   //#endregion
