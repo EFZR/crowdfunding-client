@@ -1,8 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 
-import { providerMap } from "@/src/lib/nextauth";
 import LoginForm from "@/src/components/authentication/login/LoginForm";
-import OAuthButton from "@/src/components/authentication/login/OAuthButton";
 import "@/src/styles/app/authentication/login/login.css";
 
 /**
@@ -20,16 +19,25 @@ export default function page() {
 
       <div className="login__mode grid">
         <div className="login__button-container grid">
-          {providerMap.map(
-            (provider) =>
-              provider.id !== "credentials" && (
-                <OAuthButton
-                  key={provider.id}
-                  providerId={provider.id}
-                  providerName={provider.name}
-                />
-              )
-          )}
+          <button className="login__oauth-button">
+            <Image
+              src={`/google.svg`}
+              alt={`Google OAuth 2.0`}
+              width={30}
+              height={30}
+            />
+            <span>Continúa con Google</span>
+          </button>
+
+          <button className="login__oauth-button">
+            <Image
+              src={`/facebook.svg`}
+              alt={`Facebook OAuth 2.0`}
+              width={30}
+              height={30}
+            />
+            <span>Continúa con Facebook</span>
+          </button>
         </div>
 
         <div className="divisor">

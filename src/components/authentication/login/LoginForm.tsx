@@ -4,7 +4,6 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-import { authenticate } from "@/src/actions";
 import { loginSchema, UserLoginForm } from "@/src/types/authentication";
 import "@/src/styles/components/authentication/login/LoginForm.css";
 
@@ -35,23 +34,16 @@ export default function LoginForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const result = loginSchema.safeParse(userLoginForm);
+    const valid = validateFormData();
 
-    if (!result.success) {
-      const errors: Record<string, string[]> =
-        result.error.flatten().fieldErrors;
-
-      // Showing errors.
-      Object.keys(errors).map((key) => {
-        const value = errors[key];
-        toast.error(value[0]);
-      });
-
-      return;
-    }
+    if (!valid) return;
 
     try {
-      const response = await authenticate(userLoginForm);
+      const body = JSON.stringify(userLoginForm);
+      const response = await fetch("/api/authentication/login", {
+        method: "POST",
+        body,
+      });
       if (!response) {
         toast.error("Revisa tus credenciales.");
       } else {
@@ -62,7 +54,29 @@ export default function LoginForm() {
     }
   }
 
+  // TODO: make an own function for each problem with the same issue.
+  function validateFormData(): boolean {
+    const result = loginSchema.safeParse(userLoginForm);
+
+    if (!result.success) {
+      const { fieldErrors } = result.error.flatten();
+      const errors: Record<string, string[]> = fieldErrors;
+
+      // Showing errors.
+      Object.entries(errors).forEach(([key, value]) => {
+        if (value && value.length > 0) {
+          toast.error(value[0]);
+        }
+      });
+
+      return false;
+    }
+
+    return true;
+  }
+
   //#endregion
+
   return (
     <>
       <form className="login__form grid" onSubmit={handleSubmit} noValidate>

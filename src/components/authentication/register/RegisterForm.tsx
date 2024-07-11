@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 
 import { UserRegistrationForm } from "@/src/types/authentication";
 import { registrationSchema } from "@/src/types/authentication";
-import { createAccount } from "@/src/actions/authentication";
 import "@/src/styles/components/authentication/register/RegisterForm.css";
 
 export default function RegisterForm() {
@@ -36,29 +35,40 @@ export default function RegisterForm() {
     const url = "/api/authentication/register";
 
     // Checking integrity of data.
-    const result = registrationSchema.safeParse(userRegistrationForm);
-    if (!result.success) {
-      const errors: Record<string, string[]> =
-        result.error.flatten().fieldErrors;
+    const valid = validateFormData();
 
-      // Showing errors.
-      Object.keys(errors).map((key) => {
-        const value = errors[key];
-        toast.error(value[0]);
-      });
-
-      return;
-    }
+    if (!valid) return;
 
     try {
-      const response = await createAccount(userRegistrationForm);
-      toast.success(response);
-      setUserRegistrationForm(initialValues);
+      // const response = await createAccount(userRegistrationForm);
+      // toast.success(response);
+      // setUserRegistrationForm(initialValues);
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
+      // if (error instanceof Error) {
+      //   toast.error(error.message);
+      // }
     }
+  }
+
+  // TODO: make an own function for each problem with the same issue.
+  function validateFormData(): boolean {
+    const result = registrationSchema.safeParse(userRegistrationForm);
+
+    if (!result.success) {
+      const { fieldErrors } = result.error.flatten();
+      const errors: Record<string, string[]> = fieldErrors;
+
+      // Showing errors.
+      Object.entries(errors).forEach(([key, value]) => {
+        if (value && value.length > 0) {
+          toast.error(value[0]);
+        }
+      });
+
+      return false;
+    }
+
+    return true;
   }
 
   //#endregion

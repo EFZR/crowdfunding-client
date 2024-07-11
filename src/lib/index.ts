@@ -1,3 +1,3 @@
-import { logError, logInfo } from "./logger";
+import { logger } from "./logger";
 
-export { logError, logInfo };
+export { logger };

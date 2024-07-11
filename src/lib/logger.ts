@@ -1,15 +1,48 @@
-"use server";
-
 import type { Logger } from "winston";
 import winston from "winston";
+import colors from "colors";
 
-const logger: Logger = winston.createLogger({
+/** Improved Logger structure with enhanced flexibility and readability */
+
+type LogLevel = "critical" | "warning" | "success";
+
+type LoggerConfig = {
+  level: LogLevel;
+  color: (message: string) => string;
+};
+
+type LoggerType = {
+  log: (level: LogLevel, message: string) => void;
+  critical: (message: string) => void;
+  warning: (message: string) => void;
+  success: (message: string) => void;
+};
+
+const logLevels: { [key in LogLevel]: LoggerConfig } = {
+  critical: {
+    level: "critical",
+    color: (message: string) => colors.red.bold(message),
+  },
+  warning: {
+    level: "warning",
+    color: (message: string) => colors.bgYellow.bold(message),
+  },
+  success: {
+    level: "success",
+    color: (message: string) => colors.cyan.bold(message),
+  },
+};
+
+const logMessage = (level: LogLevel, message: string) => {
+  console.log(logLevels[level].color(`[${level.toUpperCase()}] ${message}`));
+};
+
+const loggerConfig: Logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json()
   ),
   transports: [
-    new winston.transports.Console(),
     new winston.transports.File({
       filename: "application-log/combined.log",
     }),
@@ -20,25 +53,25 @@ const logger: Logger = winston.createLogger({
   ],
 });
 
-const logInfo = (message: string): void => {
-  logger.info({
-    message,
-  });
+const logger: LoggerType = {
+  log: (level: LogLevel, message: string) => {
+    logMessage(level, message);
+    loggerConfig.info({
+      message,
+    });
+  },
+  critical: (message: string) => {
+    logMessage("critical", message);
+    loggerConfig.error({
+      message,
+    });
+  },
+  warning: (message: string) => {
+    logMessage("warning", message);
+  },
+  success: (message: string) => {
+    logMessage("success", message);
+  },
 };
 
-const logError = (error: Error): void => {
-  logger.error({
-    message: error.message,
-    stack: error.stack,
-  });
-};
-
-// if (process.env.NODE_ENV !== 'production') {
-//   logger.add(
-//     new winston.transports.Console({
-//       format: winston.format.simple(),
-//     })
-//   );
-// }
-
-export { logError, logInfo };
+export { logger };
