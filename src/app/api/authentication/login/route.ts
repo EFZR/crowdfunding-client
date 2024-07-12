@@ -19,7 +19,7 @@ export async function POST(request: Request) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: body,
+      body
     });
 
     const responseData = await response.json();

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const authSchema = z.object({
   id: z.string(),
-  name: z
+  username: z
     .string()
     .min(1, {
       message: "El nombre de usuario es obligatorio.",
@@ -43,11 +43,19 @@ export type UserLoginForm = z.infer<typeof loginSchema>;
 
 // Registration schema.
 
-export const registrationSchema = authSchema.pick({
-  name: true,
-  email: true,
-  password: true,
-});
+export const registrationSchema = authSchema
+  .pick({
+    username: true,
+    email: true,
+    password: true,
+  })
+  .extend({
+    password_confirmation: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "Contraseñas no coinciden.",
+    path: ["confirm"],
+  });
 
 export type UserRegistrationForm = z.infer<typeof registrationSchema>;
 
@@ -55,7 +63,7 @@ export type UserRegistrationForm = z.infer<typeof registrationSchema>;
 
 export const userReturn = authSchema.pick({
   id: true,
-  name: true,
+  username: true,
   email: true,
   image: true,
 });

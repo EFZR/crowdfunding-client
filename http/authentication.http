@@ -11,10 +11,12 @@ Content-Type: application/json
 
 ###
 
-POST http://{{hostname}}:{{port}}/api/auth/register
+POST http://{{hostname}}:{{port}}/api/authentication/register
 Content-Type: application/json
 
 {
-  "email": "suamy.zapatarivas@gmail.com",
-  "password": "password"
+  "email": "david.zapatarivas@gmail.com",
+  "username": "david zapata",
+  "password": "password",
+  "password_confirmation": "password"
 }

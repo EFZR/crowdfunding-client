@@ -12,8 +12,9 @@ export default function RegisterForm() {
 
   const initialValues: UserRegistrationForm = {
     email: "",
+    username: "",
     password: "",
-    name: "",
+    password_confirmation: "",
   };
 
   const [userRegistrationForm, setUserRegistrationForm] =
@@ -92,13 +93,13 @@ export default function RegisterForm() {
       <div className="field">
         <input
           type="text"
-          id="name"
+          id="username"
           placeholder=""
-          name="name"
-          value={userRegistrationForm.name}
+          name="username"
+          value={userRegistrationForm.username}
           onChange={handleChange}
         />
-        <label className="label" htmlFor="name">
+        <label className="label" htmlFor="username">
           Nombre Completo
         </label>
       </div>
