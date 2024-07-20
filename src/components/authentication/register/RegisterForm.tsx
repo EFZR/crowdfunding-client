@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 import { UserRegistrationForm } from "@/src/types/authentication";
 import { registrationSchema } from "@/src/types/authentication";
+import { responseSchema } from "@/src/types/response";
 import "@/src/styles/components/authentication/register/RegisterForm.css";
 
 export default function RegisterForm() {
@@ -20,6 +22,8 @@ export default function RegisterForm() {
   const [userRegistrationForm, setUserRegistrationForm] =
     useState<UserRegistrationForm>(initialValues);
 
+  const router = useRouter();
+
   //#endregion
 
   //#region Functions
@@ -33,21 +37,43 @@ export default function RegisterForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const url = "/api/authentication/register";
 
-    // Checking integrity of data.
     const valid = validateFormData();
 
     if (!valid) return;
 
     try {
-      // const response = await createAccount(userRegistrationForm);
-      // toast.success(response);
-      // setUserRegistrationForm(initialValues);
+      const body = JSON.stringify(userRegistrationForm);
+      const response = await fetch("/api/authentication/register", {
+        method: "POST",
+        body,
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response failed.");
+      }
+
+      const bodyResponse = await response.json();
+      const responseValidation = responseSchema.safeParse(bodyResponse);
+
+      if (!responseValidation.success) {
+        toast.error("Respuesta Invalida");
+        return;
+      }
+
+      const responseData = responseValidation.data;
+      if (responseData.errors) {
+        responseData.errors.forEach((error) => toast.error(error.message));
+        return;
+      }
+
+      toast.success("Usuario Creado Correctamente.");
+      setUserRegistrationForm(initialValues);
     } catch (error) {
-      // if (error instanceof Error) {
-      //   toast.error(error.message);
-      // }
+      if (error instanceof Error) {
+        // logger.critical(error.message);
+        toast.error("Algo salió mal. Por favor, inténtalo de nuevo más tarde.");
+      }
     }
   }
 
@@ -115,6 +141,20 @@ export default function RegisterForm() {
         />
         <label className="label" htmlFor="password">
           Contraseña
+        </label>
+      </div>
+
+      <div className="field">
+        <input
+          type="password"
+          id="password_confirmation"
+          placeholder="Password"
+          name="password_confirmation"
+          value={userRegistrationForm.password_confirmation}
+          onChange={handleChange}
+        />
+        <label className="label" htmlFor="password_confirmation">
+          Confirmar Contraseña
         </label>
       </div>
 

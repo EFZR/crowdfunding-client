@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 import { loginSchema, UserLoginForm } from "@/src/types/authentication";
+import { responseSchema } from "@/src/types/response";
 import "@/src/styles/components/authentication/login/LoginForm.css";
 
 export default function LoginForm() {
@@ -44,13 +45,32 @@ export default function LoginForm() {
         method: "POST",
         body,
       });
-      if (!response) {
-        toast.error("Revisa tus credenciales.");
-      } else {
-        router.push("/");
+
+      if (!response.ok) {
+        throw new Error("Network response failed.");
       }
+
+      const bodyResponse = await response.json();
+      const responseValidation = responseSchema.safeParse(bodyResponse);
+
+      if (!responseValidation.success) {
+        toast.error("Respuesta Invalida");
+        return;
+      }
+
+      const responseData = responseValidation.data;
+      if (responseData.errors) {
+        responseData.errors.forEach((error) => toast.error(error.message));
+        return;
+      }
+
+      toast.success("Autenticado Correctamente.");
+      router.push("/");
     } catch (error) {
-      toast.error("Revisa tus credenciales.");
+      if (error instanceof Error) {
+        // logger.critical(error.message);
+        toast.error("Algo salió mal. Por favor, inténtalo de nuevo más tarde.");
+      }
     }
   }
 

@@ -18,7 +18,7 @@ export default function page() {
 
       <div className="register__mode grid">
         <div className="register__button-container grid">
-          <button className="login__oauth-button">
+          <button className="register__oauth-button">
             <Image
               src={`/google.svg`}
               alt={`Google OAuth 2.0`}
@@ -28,7 +28,7 @@ export default function page() {
             <span>Continúa con Google</span>
           </button>
 
-          <button className="login__oauth-button">
+          <button className="register__oauth-button">
             <Image
               src={`/facebook.svg`}
               alt={`Facebook OAuth 2.0`}
