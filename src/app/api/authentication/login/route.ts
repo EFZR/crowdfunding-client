@@ -19,7 +19,7 @@ export async function POST(request: Request) {
       headers: {
         "Content-Type": "application/json",
       },
-      body
+      body,
     });
 
     const responseData = await response.json();
@@ -38,8 +38,8 @@ export async function POST(request: Request) {
   } catch (error) {
     if (error instanceof Error) {
       logger.critical(error.message);
-      return Response.json({
-        error: "Error interno, vuela a intentarlo mas tarde.",
+      return new Response("Error interno, vuela a intentarlo mas tarde.", {
+        status: 500,
       });
     }
   }

@@ -68,7 +68,6 @@ export default function LoginForm() {
       router.push("/");
     } catch (error) {
       if (error instanceof Error) {
-        // logger.critical(error.message);
         toast.error("Algo salió mal. Por favor, inténtalo de nuevo más tarde.");
       }
     }
