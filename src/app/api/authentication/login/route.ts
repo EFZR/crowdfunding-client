@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { loginSchema } from "@/src/types/authentication";
 import { logger } from "@/src/lib";
 
@@ -32,6 +33,8 @@ export async function POST(request: Request) {
     }
 
     const { token } = responseData;
+    cookies().set("token", token);
+
     return Response.json({
       token,
     });
