@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 export default async function middleware(req: NextRequest) {
   const { nextUrl, cookies } = req;
   const token = cookies.get("token")?.value;
-  console.log(nextUrl.pathname);
 
+  // TODO: Request for the server to check if the user still active.
   if (
     token &&
     ["/authentication/login", "/authentication/register"].includes(
