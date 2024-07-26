@@ -4,6 +4,14 @@ import { Poppins } from "next/font/google";
 import ToastProvider from "../providers/ToastProvider";
 import "./globals.css";
 
+/**
+ * TODO:
+ *  Tasks that can order the structure of the project.
+ *
+ * - Reorder every component and have a section of UI
+ * - Move the styles file inside their components and not use other folder
+ */
+
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",

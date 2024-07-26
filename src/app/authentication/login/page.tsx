@@ -4,10 +4,6 @@ import Image from "next/image";
 import LoginForm from "@/src/components/authentication/login/LoginForm";
 import "@/src/styles/app/authentication/login/login.css";
 
-/**
- * FIX: CSRF Token not present when signIn
- */
-
 export default function page() {
   return (
     <section className="login section container grid">

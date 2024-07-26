@@ -1,0 +1,61 @@
+.OTP__container {
+  min-height: 100vh;
+  place-items: center;
+}
+
+form {
+  width: 320px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 30px;
+  gap: 20px;
+  position: relative;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 12px 24px var(--shadow-color);
+}
+
+.title {
+  font-size: 18px;
+}
+
+.text {
+  font-size: 12px;
+}
+
+.input__container {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.input__container input {
+  border: 1px var(--first-color) solid;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  outline: none;
+  border-radius: 7px;
+  caret-color: var(--first-color);
+  color: var(--first-color);
+  font-size: 16px;
+  font-weight: var(--font-semi-bold);
+  background-color: var(--container-color);
+}
+
+.resend__text {
+  color: var(--first-color);
+  font-size: 12px;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  text-transform: capitalize;
+}

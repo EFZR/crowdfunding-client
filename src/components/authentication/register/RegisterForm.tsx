@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 import { UserRegistrationForm } from "@/src/types/authentication";
@@ -22,7 +21,6 @@ export default function RegisterForm() {
   const [userRegistrationForm, setUserRegistrationForm] =
     useState<UserRegistrationForm>(initialValues);
 
-  const router = useRouter();
 
   //#endregion
 
@@ -67,7 +65,7 @@ export default function RegisterForm() {
         return;
       }
 
-      toast.success("Usuario Creado Correctamente.");
+      toast.success(responseData.success!);
       setUserRegistrationForm(initialValues);
     } catch (error) {
       if (error instanceof Error) {
