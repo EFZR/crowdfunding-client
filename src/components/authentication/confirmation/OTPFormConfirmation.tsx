@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, FormEvent, ChangeEvent } from "react";
+import { useState, FormEvent, ChangeEvent, KeyboardEvent } from "react";
+import toast from "react-hot-toast";
 import "@/src/styles/components/authentication/confirmation/OTPForm.css";
 
 export default function OTPFormConfirmation() {
@@ -15,7 +16,10 @@ export default function OTPFormConfirmation() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(otp);
+    const token = otp.join("");
+    if (token.length === otp.length) {
+      console.log(otp);
+    }
   }
 
   function handleInput(event: ChangeEvent<HTMLInputElement>, index: number) {
@@ -28,6 +32,22 @@ export default function OTPFormConfirmation() {
 
     if (nextInput && nextInput.tagName === "INPUT") {
       nextInput.focus();
+    }
+  }
+
+  // TODO: Fix prevInput
+  function handleKeyDown(
+    event: KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) {
+    if (event.key === "Backspace" && !event.currentTarget.value) {
+      const prevInput = event.currentTarget
+        .previousElementSibling as HTMLInputElement | null;
+
+      if (prevInput && prevInput.tagName === "INPUT") {
+        prevInput.focus();
+        setOtp([...otp.map((d, idx) => (idx === index - 1 ? "" : d))]);
+      }
     }
   }
 
@@ -48,6 +68,7 @@ export default function OTPFormConfirmation() {
                 value={data}
                 onFocus={(e) => e.target.select()}
                 onChange={(e) => handleInput(e, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
               />
             );
           })}
