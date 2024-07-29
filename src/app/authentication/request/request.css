@@ -1,24 +1,24 @@
-.OTP__container {
+.form__container {
   min-height: 100vh;
   place-items: center;
   background-color: var(--first-color);
 }
 
-form {
+.content {
   width: 100%;
   height: 100%;
+  gap: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: var(--container-color);
-  gap: 20px;
   position: relative;
   text-align: center;
 }
 
 @media screen and (min-width: 768px) {
-  form {
+  .content {
     width: 400px;
     height: 400px;
     padding: 20px 30px;
@@ -27,12 +27,25 @@ form {
   }
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 320px;
+}
+
+@media screen and (min-width: 768px) {
+  form {
+    width: 100%;
+  }
+}
+
 .title {
   font-size: 18px;
 }
 
 .subtitle {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .subtitle span {
@@ -40,13 +53,18 @@ form {
   font-weight: var(--font-bold);
 }
 
-.request__link {
-  color: var(--first-color);
-  font-size: 12px;
+input[type="submit"] {
+  width: 100%;
+  border-radius: 0.5rem;
 }
 
-.button {
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  text-transform: capitalize;
+.nav__link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav__link .auth__link {
+  color: var(--first-color);
+  font-size: 12px;
 }

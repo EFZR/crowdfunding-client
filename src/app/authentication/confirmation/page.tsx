@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import OTPFormConfirmation from "@/src/components/authentication/confirmation/OTPFormConfirmation";
 import "./confirmation.css";
 
@@ -6,11 +8,14 @@ export default function page() {
     <div className="grid OTP__container">
       <form>
         <h1 className="title">Ingresa el token de confirmación</h1>
-        <h2 className="text">Te enviamos un token de verificación al correo</h2>
+        <h2 className="subtitle">
+          Te enviamos un token de {""}
+          <span>verificación al correo</span>
+        </h2>
         <OTPFormConfirmation />
-        <a href="#" className="resend__text">
+        <Link href="/authentication/request" className="request__link">
           Renviar Token de validación
-        </a>
+        </Link>
       </form>
     </div>
   );
