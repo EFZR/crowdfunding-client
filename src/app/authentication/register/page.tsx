@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import RegisterForm from "@/src/components/authentication/register/RegisterForm";
-import "@/src/styles/app/authentication/register/register.css";
+import "./register.css";
 
 export default function page() {
   return (

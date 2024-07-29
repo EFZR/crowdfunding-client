@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
+import { Input } from "../../ui/Input/Input";
 import toast from "react-hot-toast";
 
 import { UserRegistrationForm } from "@/src/types/authentication";
 import { registrationSchema } from "@/src/types/authentication";
 import { responseSchema } from "@/src/types/response";
-import "@/src/styles/components/authentication/register/RegisterForm.css";
+import "./RegisterForm.css";
 
 export default function RegisterForm() {
   //#region State
@@ -20,7 +21,6 @@ export default function RegisterForm() {
 
   const [userRegistrationForm, setUserRegistrationForm] =
     useState<UserRegistrationForm>(initialValues);
-
 
   //#endregion
 
@@ -100,61 +100,45 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="register__form grid" noValidate>
-      <div className="field">
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder=""
-          value={userRegistrationForm.email}
-          onChange={handleChange}
-        />
-        <label className="label" htmlFor="email">
-          Correo Electrónico
-        </label>
-      </div>
+      <Input
+        type="email"
+        id="email"
+        name="email"
+        placeholder=""
+        label="Correo Electronico"
+        value={userRegistrationForm.email}
+        onChange={handleChange}
+      />
 
-      <div className="field">
-        <input
-          type="text"
-          id="username"
-          placeholder=""
-          name="username"
-          value={userRegistrationForm.username}
-          onChange={handleChange}
-        />
-        <label className="label" htmlFor="username">
-          Nombre Completo
-        </label>
-      </div>
+      <Input
+        type="text"
+        id="username"
+        name="username"
+        placeholder=""
+        label="Nombre Completo"
+        value={userRegistrationForm.username}
+        onChange={handleChange}
+      />
 
-      <div className="field">
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-          name="password"
-          value={userRegistrationForm.password}
-          onChange={handleChange}
-        />
-        <label className="label" htmlFor="password">
-          Contraseña
-        </label>
-      </div>
+      <Input
+        type="password"
+        id="password"
+        name="password"
+        placeholder=""
+        label="Contraseña"
+        value={userRegistrationForm.password}
+        onChange={handleChange}
+      />
 
-      <div className="field">
-        <input
-          type="password"
-          id="password_confirmation"
-          placeholder="Password"
-          name="password_confirmation"
-          value={userRegistrationForm.password_confirmation}
-          onChange={handleChange}
-        />
-        <label className="label" htmlFor="password_confirmation">
-          Confirmar Contraseña
-        </label>
-      </div>
+      <Input
+        type="password"
+        id="password_confirmation"
+        name="password_confirmation"
+        placeholder=""
+        label="Confirmar Contraseña"
+        value={userRegistrationForm.password}
+        onChange={handleChange}
+      />
 
       <input type="submit" className="button" />
     </form>

@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 import { confirmationToken } from "@/src/types/authentication";
 import { responseSchema } from "@/src/types/response";
-import "@/src/styles/components/authentication/confirmation/OTPForm.css";
+import "./OTPForm.css";
 
 export default function OTPFormConfirmation() {
   //#region States

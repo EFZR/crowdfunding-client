@@ -4,9 +4,10 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
+import { Input } from "../../ui/Input/Input";
 import { loginSchema, UserLoginForm } from "@/src/types/authentication";
 import { responseSchema } from "@/src/types/response";
-import "@/src/styles/components/authentication/login/LoginForm.css";
+import "./LoginForm.css";
 
 export default function LoginForm() {
   //#region States
@@ -99,33 +100,25 @@ export default function LoginForm() {
   return (
     <>
       <form className="login__form grid" onSubmit={handleSubmit} noValidate>
-        <div className="field">
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder=""
-            value={userLoginForm.email}
-            onChange={handleChange}
-          />
-          <label className="label" htmlFor="email">
-            Correo Electronico
-          </label>
-        </div>
+        <Input
+          type="email"
+          id="email"
+          name="email"
+          placeholder=""
+          label="Correo Electronico"
+          value={userLoginForm.email}
+          onChange={handleChange}
+        />
 
-        <div className="field">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder=""
-            value={userLoginForm.password}
-            onChange={handleChange}
-          />
-          <label className="label" htmlFor="password">
-            Contraseña
-          </label>
-        </div>
+        <Input
+          type="password"
+          id="password"
+          name="password"
+          placeholder=""
+          label="Contraseña"
+          value={userLoginForm.password}
+          onChange={handleChange}
+        />
 
         <input type="submit" className="button" />
       </form>
