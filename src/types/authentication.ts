@@ -26,7 +26,14 @@ const authSchema = z.object({
     .min(8, {
       message: "La contraseña debe tener al menos 8 caracteres.",
     }),
-  token: z.string(),
+  token: z
+    .string()
+    .min(1, {
+      message: "Llena el token de confirmación.",
+    })
+    .max(6, {
+      message: "Token invalido",
+    }),
   image: z.any(),
 });
 
@@ -69,3 +76,11 @@ export const userReturn = authSchema.pick({
 });
 
 export type UserReturn = z.infer<typeof userReturn>;
+
+// Confirmation token schema.
+
+export const confirmationToken = authSchema.pick({
+  token: true,
+});
+
+export type ConfirmationToken = z.infer<typeof confirmationToken>;

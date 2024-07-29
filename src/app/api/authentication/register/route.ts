@@ -25,9 +25,8 @@ export async function POST(request: Request) {
     const responseData = await response.json();
 
     if (!response.ok) {
-      const { errors } = responseData;
       return Response.json({
-        errors,
+        errors: "Respuesta invalida.",
       });
     }
 

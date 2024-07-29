@@ -1,10 +1,9 @@
-import { cookies } from "next/headers";
-import { loginSchema } from "@/src/types/authentication";
+import { confirmationToken } from "@/src/types/authentication";
 import { logger } from "@/src/lib";
 
 export async function POST(request: Request) {
   const requestData = await request.json();
-  const validation = loginSchema.safeParse(requestData);
+  const validation = confirmationToken.safeParse(requestData);
 
   if (!validation.success) {
     return Response.json({
@@ -15,7 +14,7 @@ export async function POST(request: Request) {
   const body = JSON.stringify(validation.data);
 
   try {
-    const response = await fetch(`${process.env.API_URL}/auth/login`, {
+    const response = await fetch(`${process.env.API_URL}/auth/confirm-account`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,17 +31,15 @@ export async function POST(request: Request) {
       });
     }
 
-    const { token } = responseData;
-    cookies().set("token", token);
-
+    const { success } = responseData;
     return Response.json({
-      token,
+      success,
     });
   } catch (error) {
     if (error instanceof Error) {
       logger.critical(error.message);
-      return new Response("Error interno, vuela a intentarlo mas tarde.", {
-        status: 500,
+      return Response.json({
+        error: "Error interno, vuela a intentarlo mas tarde.",
       });
     }
   }

@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, FormEvent, ChangeEvent, KeyboardEvent } from "react";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+
+import { confirmationToken } from "@/src/types/authentication";
+import { responseSchema } from "@/src/types/response";
 import "@/src/styles/components/authentication/confirmation/OTPForm.css";
 
 export default function OTPFormConfirmation() {
@@ -10,16 +14,73 @@ export default function OTPFormConfirmation() {
   const initialValue: string[] = new Array(6).fill("");
   const [otp, setOtp] = useState<string[]>(initialValue);
 
+  const router = useRouter();
+
   //#endregion
 
   //#region Functions
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const token = otp.join("");
-    if (token.length === otp.length) {
-      console.log(otp);
+    const valid = validateFormData();
+
+    if (!valid) return;
+
+    try {
+      const body = JSON.stringify({ token: token });
+      const response = await fetch("/api/authentication/confirmation", {
+        method: "POST",
+        body,
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response failed.");
+      }
+
+      const bodyResponse = await response.json();
+      const responseValidation = responseSchema.safeParse(bodyResponse);
+
+      if (!responseValidation.success) {
+        toast.error("Respuesta Invalida");
+        return;
+      }
+
+      const responseData = responseValidation.data;
+      if (responseData.errors) {
+        responseData.errors.forEach((error) => toast.error(error.message));
+        return;
+      }
+
+      toast.success(responseData.success!);
+      router.push("/authentication/login");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error("Algo salió mal. Por favor, inténtalo de nuevo más tarde.");
+      }
     }
+  }
+
+  // TODO: make an own function for each problem with the same issue.
+  function validateFormData(): boolean {
+    const token = otp.join("");
+    const result = confirmationToken.safeParse({ token });
+
+    if (!result.success) {
+      const { fieldErrors } = result.error.flatten();
+      const errors: Record<string, string[]> = fieldErrors;
+
+      // Showing errors.
+      Object.entries(errors).forEach(([key, value]) => {
+        if (value && value.length > 0) {
+          toast.error(value[0]);
+        }
+      });
+
+      return false;
+    }
+
+    return true;
   }
 
   function handleInput(event: ChangeEvent<HTMLInputElement>, index: number) {
