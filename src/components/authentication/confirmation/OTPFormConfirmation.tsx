@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent, ChangeEvent, KeyboardEvent } from "react";
+import { useState, FormEvent, KeyboardEvent, useRef } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -13,6 +13,7 @@ export default function OTPFormConfirmation() {
 
   const initialValue: string[] = new Array(6).fill("");
   const [otp, setOtp] = useState<string[]>(initialValue);
+  const otpBoxReference = useRef<(HTMLInputElement | null)[]>([]);
 
   const router = useRouter();
 
@@ -83,32 +84,28 @@ export default function OTPFormConfirmation() {
     return true;
   }
 
-  function handleInput(event: ChangeEvent<HTMLInputElement>, index: number) {
-    if (isNaN(+event.target.value)) return;
+  function handleChange(value: string, index: number) {
+    if (isNaN(+value)) return;
 
-    setOtp([...otp.map((d, idx) => (idx === index ? event.target.value : d))]);
+    let newArr = [...otp];
+    newArr[index] = value;
+    setOtp(newArr);
 
-    const nextInput = event.target
-      .nextElementSibling as HTMLInputElement | null;
-
-    if (nextInput && nextInput.tagName === "INPUT") {
-      nextInput.focus();
+    if (value && index < 6 - 1) {
+      otpBoxReference.current[index + 1]?.focus();
     }
   }
 
-  // TODO: Fix prevInput
-  function handleKeyDown(
+  function handleBackspaceAndEnter(
     event: KeyboardEvent<HTMLInputElement>,
     index: number
   ) {
-    if (event.key === "Backspace" && !event.currentTarget.value) {
-      const prevInput = event.currentTarget
-        .previousElementSibling as HTMLInputElement | null;
+    if (event.key === "Backspace" && !event.currentTarget.value && index > 0) {
+      otpBoxReference.current[index - 1]?.focus();
+    }
 
-      if (prevInput && prevInput.tagName === "INPUT") {
-        prevInput.focus();
-        setOtp([...otp.map((d, idx) => (idx === index - 1 ? "" : d))]);
-      }
+    if (event.key === "Enter" && !event.currentTarget.value && index < 6 + 1) {
+      otpBoxReference.current[index + 1]?.focus();
     }
   }
 
@@ -128,8 +125,11 @@ export default function OTPFormConfirmation() {
                 key={index}
                 value={data}
                 onFocus={(e) => e.target.select()}
-                onChange={(e) => handleInput(e, index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
+                onChange={(e) => handleChange(e.target.value, index)}
+                onKeyUp={(e) => handleBackspaceAndEnter(e, index)}
+                ref={(reference: HTMLInputElement | null) => {
+                  otpBoxReference.current[index] = reference;
+                }}
               />
             );
           })}
