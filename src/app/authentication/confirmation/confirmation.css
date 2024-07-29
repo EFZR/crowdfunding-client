@@ -34,30 +34,6 @@ form {
   font-size: 12px;
 }
 
-.input__container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.input__container input {
-  border: 1px var(--first-color) solid;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  outline: none;
-  border-radius: 7px;
-  caret-color: var(--first-color);
-  color: var(--first-color);
-  font-size: 16px;
-  font-weight: var(--font-semi-bold);
-  background-color: var(--container-color);
-}
-
 .resend__text {
   color: var(--first-color);
   font-size: 12px;

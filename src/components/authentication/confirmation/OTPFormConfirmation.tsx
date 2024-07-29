@@ -1,30 +1,31 @@
 "use client";
 
-import { useState, FormEvent, KeyboardEvent, useRef } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-import { confirmationToken } from "@/src/types/authentication";
+import {
+  ConfirmationToken,
+  confirmationTokenSchema,
+} from "@/src/types/authentication";
 import { responseSchema } from "@/src/types/response";
-import "./OTPForm.css";
+import { validateFormData } from "@/src/lib/validator";
+import OTPForm from "../../ui/OTP/OTPForm";
 
 export default function OTPFormConfirmation() {
   //#region States
 
-  const initialValue: string[] = new Array(6).fill("");
-  const [otp, setOtp] = useState<string[]>(initialValue);
-  const otpBoxReference = useRef<(HTMLInputElement | null)[]>([]);
-
+  const [token, setToken] = useState<ConfirmationToken["token"]>("");
   const router = useRouter();
+
+  const length = 6;
 
   //#endregion
 
   //#region Functions
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const token = otp.join("");
-    const valid = validateFormData();
+  async function handleSubmit() {
+    const valid = validateFormData(confirmationTokenSchema, { token });
 
     if (!valid) return;
 
@@ -62,83 +63,18 @@ export default function OTPFormConfirmation() {
     }
   }
 
-  // TODO: make an own function for each problem with the same issue.
-  function validateFormData(): boolean {
-    const token = otp.join("");
-    const result = confirmationToken.safeParse({ token });
-
-    if (!result.success) {
-      const { fieldErrors } = result.error.flatten();
-      const errors: Record<string, string[]> = fieldErrors;
-
-      // Showing errors.
-      Object.entries(errors).forEach(([key, value]) => {
-        if (value && value.length > 0) {
-          toast.error(value[0]);
-        }
-      });
-
-      return false;
-    }
-
-    return true;
-  }
-
-  function handleChange(value: string, index: number) {
-    if (isNaN(+value)) return;
-
-    let newArr = [...otp];
-    newArr[index] = value;
-    setOtp(newArr);
-
-    if (value && index < 6 - 1) {
-      otpBoxReference.current[index + 1]?.focus();
-    }
-  }
-
-  function handleBackspaceAndEnter(
-    event: KeyboardEvent<HTMLInputElement>,
-    index: number
-  ) {
-    if (event.key === "Backspace" && !event.currentTarget.value && index > 0) {
-      otpBoxReference.current[index - 1]?.focus();
-    }
-
-    if (event.key === "Enter" && !event.currentTarget.value && index < 6 + 1) {
-      otpBoxReference.current[index + 1]?.focus();
-    }
+  function handleChange(token: ConfirmationToken["token"]) {
+    setToken(token);
   }
 
   //#endregion
 
   return (
-    <div className="grid OTP__container">
-      <form onSubmit={handleSubmit}>
-        <h1 className="title">Ingresa el token de confirmación</h1>
-        <h2 className="text">Te enviamos un token de verificación al correo</h2>
-        <div className="input__container">
-          {otp.map((data, index) => {
-            return (
-              <input
-                type="text"
-                maxLength={1}
-                key={index}
-                value={data}
-                onFocus={(e) => e.target.select()}
-                onChange={(e) => handleChange(e.target.value, index)}
-                onKeyUp={(e) => handleBackspaceAndEnter(e, index)}
-                ref={(reference: HTMLInputElement | null) => {
-                  otpBoxReference.current[index] = reference;
-                }}
-              />
-            );
-          })}
-        </div>
-        <a href="#" className="resend__text">
-          Renviar Token de validación
-        </a>
-        <input type="submit" value="verificar" className="button" />
-      </form>
-    </div>
+    <OTPForm
+      length={length}
+      value={token}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+    />
   );
 }

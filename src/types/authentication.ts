@@ -79,8 +79,8 @@ export type UserReturn = z.infer<typeof userReturn>;
 
 // Confirmation token schema.
 
-export const confirmationToken = authSchema.pick({
+export const confirmationTokenSchema = authSchema.pick({
   token: true,
 });
 
-export type ConfirmationToken = z.infer<typeof confirmationToken>;
+export type ConfirmationToken = z.infer<typeof confirmationTokenSchema>;

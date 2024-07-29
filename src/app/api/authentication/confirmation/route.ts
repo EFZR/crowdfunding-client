@@ -1,9 +1,9 @@
-import { confirmationToken } from "@/src/types/authentication";
+import { confirmationTokenSchema } from "@/src/types/authentication";
 import { logger } from "@/src/lib";
 
 export async function POST(request: Request) {
   const requestData = await request.json();
-  const validation = confirmationToken.safeParse(requestData);
+  const validation = confirmationTokenSchema.safeParse(requestData);
 
   if (!validation.success) {
     return Response.json({
