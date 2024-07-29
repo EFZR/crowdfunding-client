@@ -5,6 +5,7 @@ import { Input } from "../../ui/Input/Input";
 import toast from "react-hot-toast";
 
 import { UserRegistrationForm } from "@/src/types/authentication";
+import { validateFormData } from "@/src/lib/validator";
 import { registrationSchema } from "@/src/types/authentication";
 import { responseSchema } from "@/src/types/response";
 import "./RegisterForm.css";
@@ -36,7 +37,7 @@ export default function RegisterForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const valid = validateFormData();
+    const valid = validateFormData(registrationSchema, userRegistrationForm);
 
     if (!valid) return;
 
@@ -73,27 +74,6 @@ export default function RegisterForm() {
         toast.error("Algo salió mal. Por favor, inténtalo de nuevo más tarde.");
       }
     }
-  }
-
-  // TODO: make an own function for each problem with the same issue.
-  function validateFormData(): boolean {
-    const result = registrationSchema.safeParse(userRegistrationForm);
-
-    if (!result.success) {
-      const { fieldErrors } = result.error.flatten();
-      const errors: Record<string, string[]> = fieldErrors;
-
-      // Showing errors.
-      Object.entries(errors).forEach(([key, value]) => {
-        if (value && value.length > 0) {
-          toast.error(value[0]);
-        }
-      });
-
-      return false;
-    }
-
-    return true;
   }
 
   //#endregion
@@ -136,7 +116,7 @@ export default function RegisterForm() {
         name="password_confirmation"
         placeholder=""
         label="Confirmar Contraseña"
-        value={userRegistrationForm.password}
+        value={userRegistrationForm.password_confirmation}
         onChange={handleChange}
       />
 
