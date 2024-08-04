@@ -1,9 +1,9 @@
-import { registrationSchema } from "@/src/types/authentication";
+import { requestNewPasswordTokenSchema } from "@/src/types/authentication";
 import { logger } from "@/src/lib";
 
 export async function POST(request: Request) {
   const requestData = await request.json();
-  const validation = registrationSchema.safeParse(requestData);
+  const validation = requestNewPasswordTokenSchema.safeParse(requestData);
 
   if (!validation.success) {
     return Response.json({
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   const body = JSON.stringify(validation.data);
 
   try {
-    const response = await fetch(`${process.env.API_URL}/auth/create-account`, {
+    const response = await fetch(`${process.env.API_URL}/auth/forgot-password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

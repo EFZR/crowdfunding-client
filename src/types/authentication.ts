@@ -74,10 +74,26 @@ export const confirmationTokenSchema = authSchema.pick({
 
 export type ConfirmationToken = z.infer<typeof confirmationTokenSchema>;
 
-// Request new token schema.
+// Request new Confirmation token schema.
 
-export const requestConfirmationToken = authSchema.pick({
+export const requestConfirmationTokenSchema = authSchema.pick({
   email: true,
 });
 
-export type RequestConfirmationToken = z.infer<typeof requestConfirmationToken>;
+export type RequestConfirmationToken = z.infer<typeof requestConfirmationTokenSchema>;
+
+// Request new Password token schema.
+
+export const requestNewPasswordTokenSchema = authSchema.pick({
+  email: true,
+});
+
+export type RequestNewPasswordToken = z.infer<typeof requestConfirmationTokenSchema>;
+
+// New Password token schema.
+
+export const newPasswordTokenSchema = authSchema.pick({
+  token: true,
+});
+
+export type NewPasswordToken = z.infer<typeof newPasswordTokenSchema>;

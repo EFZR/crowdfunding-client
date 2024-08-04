@@ -7,15 +7,15 @@ import { Input } from "@/src/components/ui/Input/Input";
 import { validateFormData } from "@/src/lib/validator";
 import { responseSchema } from "@/src/types/response";
 import {
-  requestConfirmationTokenSchema,
-  RequestConfirmationToken,
+  requestNewPasswordTokenSchema,
+  RequestNewPasswordToken,
 } from "@/src/types/authentication";
-import "./RequestConfirmationTokenForm.css";
+import "./RequestNewPasswordTokenForm.css";
 
-export default function RequestConfirmationTokenForm() {
+export default function RequestNewPasswordTokenForm() {
   //#region State
 
-  const [email, setEmail] = useState<RequestConfirmationToken["email"]>("");
+  const [email, setEmail] = useState<RequestNewPasswordToken["email"]>("");
 
   //#endregion
 
@@ -24,13 +24,13 @@ export default function RequestConfirmationTokenForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const valid = validateFormData(requestConfirmationTokenSchema, { email });
+    const valid = validateFormData(requestNewPasswordTokenSchema, { email });
 
     if (!valid) return;
 
     try {
       const body = JSON.stringify({ email });
-      const response = await fetch("/api/authentication/request", {
+      const response = await fetch("/api/authentication/forgotPassword", {
         method: "POST",
         body,
       });
@@ -65,7 +65,7 @@ export default function RequestConfirmationTokenForm() {
   //#endregion
 
   return (
-    <form onSubmit={handleSubmit} className="request__form">
+    <form onSubmit={handleSubmit} className="forgotPassword__form">
       <Input
         id="email"
         name="email"

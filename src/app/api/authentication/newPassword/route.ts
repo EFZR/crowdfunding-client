@@ -1,26 +1,29 @@
-import { registrationSchema } from "@/src/types/authentication";
+import { newPasswordTokenSchema } from "@/src/types/authentication";
 import { logger } from "@/src/lib";
 
 export async function POST(request: Request) {
   const requestData = await request.json();
-  const validation = registrationSchema.safeParse(requestData);
+  const validation = newPasswordTokenSchema.safeParse(requestData);
 
   if (!validation.success) {
     return Response.json({
-      error: "Respuesta invalida.",
+      errors: "Respuesta invalida.",
     });
   }
 
   const body = JSON.stringify(validation.data);
 
   try {
-    const response = await fetch(`${process.env.API_URL}/auth/create-account`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body,
-    });
+    const response = await fetch(
+      `${process.env.API_URL}/auth/validate-password-token`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      }
+    );
 
     const responseData = await response.json();
 
@@ -44,3 +47,5 @@ export async function POST(request: Request) {
     }
   }
 }
+
+export async function PUT(request: Request) {}

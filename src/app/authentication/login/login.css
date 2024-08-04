@@ -55,14 +55,14 @@
   border: 1px solid var(--black-color);
 }
 
-.divisor {
+.login__divisor {
   height: 0;
   width: 100%;
   position: relative;
   border-top: 1px solid var(--first-color-light);
 }
 
-.divisor span {
+.login__divisor span {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -73,12 +73,12 @@
 }
 
 @media screen and (min-width: 768px) {
-  .divisor {
+  .login__divisor {
     display: none;
   }
 }
 
-.forgot__password-link {
+.login__forgotPassword-link {
   margin-top: 3rem;
   font-size: 1.25rem;
   color: var(--text-color-light);
@@ -86,6 +86,6 @@
   transform: color 0.2s;
 }
 
-.forgot__password-link:hover {
+.login__forgotPassword-link:hover {
   color: var(--first-color);
 }

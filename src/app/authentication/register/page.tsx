@@ -7,7 +7,7 @@ import "./register.css";
 
 export default function page() {
   return (
-    <section className="register section container grid">
+    <section className="container section grid register">
       <h1 className="register__title">
         ¡Invierte en los fundadores en los que confías!
       </h1>
@@ -16,8 +16,8 @@ export default function page() {
         <Link href="/authentication/login">¡Inicia Sesión!</Link>
       </span>
 
-      <div className="register__mode grid">
-        <div className="register__button-container grid">
+      <div className="grid register__mode">
+        <div className="grid register__button-container">
           <button className="register__oauth-button">
             <Image
               src={`/google.svg`}
@@ -39,7 +39,7 @@ export default function page() {
           </button>
         </div>
 
-        <div className="divisor">
+        <div className="register__divisor">
           <span>or</span>
         </div>
 

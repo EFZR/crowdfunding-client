@@ -20,3 +20,22 @@ Content-Type: application/json
   "password": "password",
   "password_confirmation": "password"
 }
+
+###
+
+POST http://{{hostname}}:{{port}}/api/authentication/confirmation
+Content-Type: application/json
+
+{
+  "token": "123456"
+}
+
+
+###
+
+POST http://{{hostname}}:{{port}}/api/authentication/request
+Content-Type: application/json
+
+{
+  "email": "john.doe@gmail.com"
+}

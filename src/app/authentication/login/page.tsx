@@ -6,15 +6,15 @@ import "./login.css";
 
 export default function page() {
   return (
-    <section className="login section container grid">
+    <section className="container section grid login">
       <h1 className="login__title">¡Hola, Bienvenido de nuevo!</h1>
       <span className="login__subtitle">
         ¿Nuevo en Crowdfunding?{" "}
         <Link href="/authentication/register">¡Regístrate!</Link>
       </span>
 
-      <div className="login__mode grid">
-        <div className="login__button-container grid">
+      <div className="grid login__mode">
+        <div className="grid login__button-container">
           <button className="login__oauth-button">
             <Image
               src={`/google.svg`}
@@ -36,14 +36,14 @@ export default function page() {
           </button>
         </div>
 
-        <div className="divisor">
+        <div className="login__divisor">
           <span>or</span>
         </div>
 
         <LoginForm />
       </div>
 
-      <Link href="/authentication/request" className="forgot__password-link">
+      <Link href="/authentication/forgotPassword" className="login__forgotPassword-link">
         ¿Olvidaste tu Contraseña?
       </Link>
     </section>

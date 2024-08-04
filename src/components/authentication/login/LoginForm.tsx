@@ -66,7 +66,7 @@ export default function LoginForm() {
         return;
       }
 
-      toast.success("Autenticado Correctamente.");
+      toast.success(responseData.success!);
       router.push("/");
     } catch (error) {
       if (error instanceof Error) {
@@ -79,7 +79,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <form className="login__form grid" onSubmit={handleSubmit} noValidate>
+      <form className="grid login__form" onSubmit={handleSubmit} noValidate>
         <Input
           type="email"
           id="email"

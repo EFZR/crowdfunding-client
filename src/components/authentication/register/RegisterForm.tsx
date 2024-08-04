@@ -79,7 +79,7 @@ export default function RegisterForm() {
   //#endregion
 
   return (
-    <form onSubmit={handleSubmit} className="register__form grid" noValidate>
+    <form onSubmit={handleSubmit} className="grid register__form" noValidate>
       <Input
         type="email"
         id="email"

@@ -60,14 +60,14 @@
   border: 1px solid var(--black-color);
 }
 
-.divisor {
+.register__divisor {
   height: 0;
   width: 100%;
   position: relative;
   border-top: 1px solid var(--first-color-light);
 }
 
-.divisor span {
+.register__divisor span {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -78,62 +78,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .divisor {
+  .register__divisor {
     display: none;
   }
-}
-
-.register__form {
-  row-gap: 1rem;
-}
-
-.field {
-  padding-inline: 1rem;
-  padding-block: 2rem 0.5rem;
-  border: 1px solid var(--first-color-light);
-  border-radius: 0.5rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.field label {
-  position: absolute;
-  cursor: text;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: top 0.2s, font-size 0.2s;
-  font-weight: var(--font-semi-bold);
-  color: var(--text-color-light);
-}
-
-.field input {
-  &::placeholder {
-    color: transparent;
-  }
-}
-
-.field input:focus ~ .label,
-.field input:not(:placeholder-shown) ~ .label {
-  position: absolute;
-  top: 30%;
-  font-size: var(--small-font-size);
-}
-
-input[type="submit"] {
-  width: 100%;
-  border-radius: 0.5rem;
-}
-
-.forgot__password-link {
-  margin-top: 3rem;
-  font-size: 1.25rem;
-  color: var(--text-color-light);
-  font-weight: var(--font-regular);
-  transform: color 0.2s;
-}
-
-.forgot__password-link:hover {
-  color: var(--first-color);
 }

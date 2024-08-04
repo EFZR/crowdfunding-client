@@ -2,7 +2,7 @@
   row-gap: 1rem;
 }
 
-input[type="submit"] {
+.login__form input[type="submit"] {
   width: 100%;
   border-radius: 0.5rem;
 }
