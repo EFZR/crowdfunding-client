@@ -84,7 +84,6 @@ export default function RegisterForm() {
         type="email"
         id="email"
         name="email"
-        placeholder=""
         label="Correo Electronico"
         value={userRegistrationForm.email}
         onChange={handleChange}
@@ -94,7 +93,6 @@ export default function RegisterForm() {
         type="text"
         id="username"
         name="username"
-        placeholder=""
         label="Nombre Completo"
         value={userRegistrationForm.username}
         onChange={handleChange}
@@ -104,7 +102,6 @@ export default function RegisterForm() {
         type="password"
         id="password"
         name="password"
-        placeholder=""
         label="Contraseña"
         value={userRegistrationForm.password}
         onChange={handleChange}
@@ -114,7 +111,6 @@ export default function RegisterForm() {
         type="password"
         id="password_confirmation"
         name="password_confirmation"
-        placeholder=""
         label="Confirmar Contraseña"
         value={userRegistrationForm.password_confirmation}
         onChange={handleChange}

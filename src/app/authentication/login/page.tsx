@@ -43,8 +43,7 @@ export default function page() {
         <LoginForm />
       </div>
 
-      {/* TODO: Implement email auth to make it work */}
-      <Link href="" className="forgot__password-link">
+      <Link href="/authentication/request" className="forgot__password-link">
         ¿Olvidaste tu Contraseña?
       </Link>
     </section>

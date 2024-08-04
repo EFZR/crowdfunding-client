@@ -13,7 +13,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, id, name, ...props }, ref) => {
     return (
       <div className="field">
-        <input id={id} name={name} ref={ref} className="input" {...props} />
+        <input
+          id={id}
+          name={name}
+          ref={ref}
+          className="input"
+          placeholder=""
+          {...props}
+        />
         <label className="label" htmlFor={id}>
           {label}
         </label>

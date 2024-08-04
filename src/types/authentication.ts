@@ -66,17 +66,6 @@ export const registrationSchema = authSchema
 
 export type UserRegistrationForm = z.infer<typeof registrationSchema>;
 
-// Return schema.
-
-export const userReturn = authSchema.pick({
-  id: true,
-  username: true,
-  email: true,
-  image: true,
-});
-
-export type UserReturn = z.infer<typeof userReturn>;
-
 // Confirmation token schema.
 
 export const confirmationTokenSchema = authSchema.pick({
@@ -84,3 +73,11 @@ export const confirmationTokenSchema = authSchema.pick({
 });
 
 export type ConfirmationToken = z.infer<typeof confirmationTokenSchema>;
+
+// Request new token schema.
+
+export const requestConfirmationToken = authSchema.pick({
+  email: true,
+});
+
+export type RequestConfirmationToken = z.infer<typeof requestConfirmationToken>;

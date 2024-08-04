@@ -84,7 +84,6 @@ export default function LoginForm() {
           type="email"
           id="email"
           name="email"
-          placeholder=""
           label="Correo Electronico"
           value={userLoginForm.email}
           onChange={handleChange}
@@ -94,7 +93,6 @@ export default function LoginForm() {
           type="password"
           id="password"
           name="password"
-          placeholder=""
           label="Contraseña"
           value={userLoginForm.password}
           onChange={handleChange}

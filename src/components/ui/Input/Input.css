@@ -21,6 +21,7 @@
 }
 
 .field .input {
+  background-color: transparent;
   &::placeholder {
     color: transparent;
   }

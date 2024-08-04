@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Input } from "@/src/components/ui/Input/Input";
+import RequestConfirmationTokenForm from "@/src/components/authentication/request/RequestConfirmationTokenForm";
 import "./request.css";
 
 export default function page() {
@@ -12,15 +12,8 @@ export default function page() {
           Coloca tu correo para recibir un {""}
           <span>nuevo código</span>
         </h2>
-        <form>
-          <Input
-            id="email"
-            name="email"
-            label="Correo Electronico..."
-            placeholder=""
-          />
-          <input type="submit" className="button" />
-        </form>
+
+        <RequestConfirmationTokenForm />
 
         <nav className="nav__link">
           <Link href="/authentication/login" className="auth__link">
