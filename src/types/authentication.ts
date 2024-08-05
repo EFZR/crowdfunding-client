@@ -80,7 +80,9 @@ export const requestConfirmationTokenSchema = authSchema.pick({
   email: true,
 });
 
-export type RequestConfirmationToken = z.infer<typeof requestConfirmationTokenSchema>;
+export type RequestConfirmationToken = z.infer<
+  typeof requestConfirmationTokenSchema
+>;
 
 // Request new Password token schema.
 
@@ -88,7 +90,9 @@ export const requestNewPasswordTokenSchema = authSchema.pick({
   email: true,
 });
 
-export type RequestNewPasswordToken = z.infer<typeof requestConfirmationTokenSchema>;
+export type RequestNewPasswordToken = z.infer<
+  typeof requestConfirmationTokenSchema
+>;
 
 // New Password token schema.
 
@@ -97,3 +101,20 @@ export const newPasswordTokenSchema = authSchema.pick({
 });
 
 export type NewPasswordToken = z.infer<typeof newPasswordTokenSchema>;
+
+// New Password schema
+
+export const newPasswordSchema = authSchema
+  .pick({
+    password: true,
+    token: true,
+  })
+  .extend({
+    password_confirmation: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "Contraseñas no coinciden.",
+    path: ["confirm"],
+  });
+
+export type NewPassword = z.infer<typeof newPasswordSchema>;

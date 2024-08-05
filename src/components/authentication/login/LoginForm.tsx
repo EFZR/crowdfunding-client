@@ -66,7 +66,7 @@ export default function LoginForm() {
         return;
       }
 
-      toast.success(responseData.success!);
+      toast.success("Cuenta autenticada correctamente.");
       router.push("/");
     } catch (error) {
       if (error instanceof Error) {

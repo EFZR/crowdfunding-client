@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
-import { Input } from "../../ui/Input/Input";
 import toast from "react-hot-toast";
 
 import { UserRegistrationForm } from "@/src/types/authentication";
 import { validateFormData } from "@/src/lib/validator";
 import { registrationSchema } from "@/src/types/authentication";
 import { responseSchema } from "@/src/types/response";
+import { Input } from "../../ui/Input/Input";
 import "./RegisterForm.css";
 
 export default function RegisterForm() {
@@ -70,7 +70,6 @@ export default function RegisterForm() {
       setUserRegistrationForm(initialValues);
     } catch (error) {
       if (error instanceof Error) {
-        // logger.critical(error.message);
         toast.error("Algo salió mal. Por favor, inténtalo de nuevo más tarde.");
       }
     }

@@ -13,20 +13,19 @@ import OTPForm from "../../../ui/OTP/OTPForm";
 import "./OTPNewPasswordToken.css";
 
 type NewPasswordTokenProps = {
+  token: NewPasswordToken["token"];
+  setToken: Dispatch<SetStateAction<NewPasswordToken["token"]>>;
   setIsValidToken: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function OTPNewPasswordToken({
+  token,
+  setToken,
   setIsValidToken,
 }: NewPasswordTokenProps) {
-  //#region States
-
-  const [token, setToken] = useState<NewPasswordToken["token"]>("");
-  const length = 6;
-
-  //#endregion
-
   //#region Functions
+
+  const length = 6;
 
   async function handleSubmit() {
     const valid = validateFormData(newPasswordTokenSchema, { token });
@@ -45,6 +44,7 @@ export default function OTPNewPasswordToken({
       }
 
       const bodyResponse = await response.json();
+
       const responseValidation = responseSchema.safeParse(bodyResponse);
 
       if (!responseValidation.success) {
