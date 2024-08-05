@@ -118,3 +118,10 @@ export const newPasswordSchema = authSchema
   });
 
 export type NewPassword = z.infer<typeof newPasswordSchema>;
+
+// User schema
+
+export const userSchema = authSchema.pick({
+  email: true,
+  username: true,
+});

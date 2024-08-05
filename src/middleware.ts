@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSideUser } from "./lib/payload-utils";
 
 export default async function middleware(req: NextRequest) {
   const { nextUrl, cookies } = req;
-  const token = cookies.get("token")?.value;
+  const user = await getServerSideUser(cookies);
 
-  // TODO: Request for the server to check if the user still active.
   if (
-    token &&
+    user &&
     ["/authentication/login", "/authentication/register"].includes(
       nextUrl.pathname
     )

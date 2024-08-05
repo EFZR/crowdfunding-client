@@ -1,17 +1,18 @@
-@hostname=localhost
-@port=3000
+@HOSTNAME=localhost
+@PORT=3000
+@ACCESS_JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImVtYWlsIjoiZW1lcnNvbi56YXBhdGFAZ21haWwuY29tIiwiaWF0IjoxNzIyODQyMjIyLCJleHAiOjE3MzgzOTQyMjJ9.LrE2IA2FS7K1iJ71Y6PyqWzwkaZvCffGDxDIjCzfqdk
 
-POST http://{{hostname}}:{{port}}/api/authentication/login
+POST http://{{HOSTNAME}}:{{PORT}}/api/authentication/login
 Content-Type: application/json
 
 {
-  "email": "suamy.zapatarivas@gmail.com",
+  "email": "emerson.zapata@gmail.com",
   "password": "password"
 }
 
 ###
 
-POST http://{{hostname}}:{{port}}/api/authentication/register
+POST http://{{HOSTNAME}}:{{PORT}}/api/authentication/register
 Content-Type: application/json
 
 {
@@ -23,7 +24,7 @@ Content-Type: application/json
 
 ###
 
-POST http://{{hostname}}:{{port}}/api/authentication/confirmation
+POST http://{{HOSTNAME}}:{{PORT}}/api/authentication/confirmation
 Content-Type: application/json
 
 {
@@ -33,9 +34,15 @@ Content-Type: application/json
 
 ###
 
-POST http://{{hostname}}:{{port}}/api/authentication/request
+POST http://{{HOSTNAME}}:{{PORT}}/api/authentication/request
 Content-Type: application/json
 
 {
   "email": "john.doe@gmail.com"
 }
+
+###
+
+GET http://{{HOSTNAME}}:{{PORT}}/api/authentication/user
+Cookie: token={{ACCESS_JWT}}
+
