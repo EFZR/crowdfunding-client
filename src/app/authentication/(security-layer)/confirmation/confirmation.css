@@ -1,0 +1,17 @@
+.confirmation__title {
+  font-size: 18px;
+}
+
+.confirmation__subtitle {
+  font-size: 12px;
+}
+
+.confirmation__subtitle span {
+  color: var(--first-color);
+  font-weight: var(--font-bold);
+}
+
+.confirmation__request-link {
+  color: var(--first-color);
+  font-size: 12px;
+}

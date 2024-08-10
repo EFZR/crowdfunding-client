@@ -1,0 +1,23 @@
+.request__title {
+  font-size: 18px;
+}
+
+.request__subtitle {
+  font-size: 14px;
+}
+
+.request__subtitle span {
+  color: var(--first-color);
+  font-weight: var(--font-bold);
+}
+
+.request__nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.request__nav-link .request__auth-link {
+  color: var(--first-color);
+  font-size: 12px;
+}

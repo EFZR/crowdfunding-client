@@ -74,22 +74,20 @@ export default function OTPNewPasswordToken({
   //#endregion
 
   return (
-    <div className="grid NewPasswordToken__container">
-      <form className="NewPasswordToken__form">
-        <h1 className="NewPasswordToken__title">
-          Ingresa el token de confirmación
-        </h1>
-        <h2 className="NewPasswordToken__subtitle">
-          Te hemos enviado un token para <span>restablecer tu contraseña</span>
-        </h2>
+    <>
+      <h1 className="NewPasswordToken__title">
+        Ingresa el token de confirmación
+      </h1>
+      <h2 className="NewPasswordToken__subtitle">
+        Te hemos enviado un token para <span>restablecer tu contraseña</span>
+      </h2>
 
-        <OTPForm
-          length={length}
-          value={token}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-        />
-      </form>
-    </div>
+      <OTPForm
+        length={length}
+        value={token}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
+    </>
   );
 }

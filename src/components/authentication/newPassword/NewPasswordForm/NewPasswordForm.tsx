@@ -83,36 +83,33 @@ export default function NewPasswordForm({ token }: NewPasswordFormProps) {
   //#endregion
 
   return (
-    <div className="grid newPasswordForm__container">
-      <div className="newPasswordForm__content">
-        <h1 className="newPasswordForm__title">Restablece tu Contraseña</h1>
-        <h2 className="newPasswordForm__subtitle">
-          Elige una nueva contraseña y{" "}
-          <span>recupera el acceso a tu cuenta</span>
-        </h2>
+    <>
+      <h1 className="newPasswordForm__title">Restablece tu Contraseña</h1>
+      <h2 className="newPasswordForm__subtitle">
+        Elige una nueva contraseña y <span>recupera el acceso a tu cuenta</span>
+      </h2>
 
-        <form onSubmit={handleSubmit} className="grid newPasswordForm__form">
-          <Input
-            type="password"
-            id="password"
-            name="password"
-            label="Nueva Contraseña"
-            value={newPasswordForm.password}
-            onChange={handleChange}
-          />
+      <form onSubmit={handleSubmit} className="grid newPasswordForm__form">
+        <Input
+          type="password"
+          id="password"
+          name="password"
+          label="Nueva Contraseña"
+          value={newPasswordForm.password}
+          onChange={handleChange}
+        />
 
-          <Input
-            type="password"
-            id="password_confirmation"
-            name="password_confirmation"
-            label="Confirmar Contraseña"
-            value={newPasswordForm.password_confirmation}
-            onChange={handleChange}
-          />
+        <Input
+          type="password"
+          id="password_confirmation"
+          name="password_confirmation"
+          label="Confirmar Contraseña"
+          value={newPasswordForm.password_confirmation}
+          onChange={handleChange}
+        />
 
-          <input type="submit" className="button" />
-        </form>
-      </div>
-    </div>
+        <input type="submit" className="button" />
+      </form>
+    </>
   );
 }
