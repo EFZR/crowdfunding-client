@@ -1,8 +1,7 @@
-import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 import RegisterForm from "@/src/components/authentication/register/RegisterForm";
+import OAuthButton from "@/src/components/ui/OAuth/OAuthButton";
 import "./register.css";
 
 export default function page() {
@@ -18,25 +17,23 @@ export default function page() {
 
       <div className="grid register__mode">
         <div className="grid register__button-container">
-          <button className="register__oauth-button">
-            <Image
-              src={`/google.svg`}
-              alt={`Google OAuth 2.0`}
-              width={30}
-              height={30}
-            />
-            <span>Continúa con Google</span>
-          </button>
+          <OAuthButton
+            src="/google.svg"
+            alt="google"
+            provider="google"
+            height={30}
+            width={30}
+            key={"google"}
+          />
 
-          <button className="register__oauth-button">
-            <Image
-              src={`/facebook.svg`}
-              alt={`Facebook OAuth 2.0`}
-              width={30}
-              height={30}
-            />
-            <span>Continúa con Facebook</span>
-          </button>
+          <OAuthButton
+            src="/facebook.svg"
+            alt="facebook"
+            provider="facebook"
+            height={30}
+            width={30}
+            key={"facebook"}
+          />
         </div>
 
         <div className="register__divisor">

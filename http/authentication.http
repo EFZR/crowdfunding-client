@@ -43,6 +43,10 @@ Content-Type: application/json
 
 ###
 
+GET http://{{HOSTNAME}}:{{PORT}}/api/authentication/oauth/google
+
+###
+
 GET http://{{HOSTNAME}}:{{PORT}}/api/authentication/user
 Cookie: token={{ACCESS_JWT}}
 

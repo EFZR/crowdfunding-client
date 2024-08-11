@@ -1,0 +1,22 @@
+.oauth-button {
+  padding: 1rem;
+  width: 100%;
+  border: 1px solid var(--first-color-light);
+  border-radius: 0.5rem;
+  transition: border 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black-color);
+}
+
+.oauth-button span {
+  margin-inline: auto;
+  text-transform: capitalize;
+  font-weight: var(--font-medium);
+}
+
+.oauth-button:hover {
+  cursor: pointer;
+  border: 1px solid var(--black-color);
+}
